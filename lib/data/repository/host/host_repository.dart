@@ -1,0 +1,31 @@
+import 'package:isar/isar.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:tcp_penguin/data/repository/host/host_entity.dart';
+
+class HostRepository {
+  final Isar isar;
+
+  BehaviorSubject<List<HostEntity>> hosts = BehaviorSubject.seeded([]);
+
+  HostRepository({required this.isar}) {
+    isar.hostEntitys.watchLazy(fireImmediately: true).listen((_) async {
+      hosts.add(await isar.hostEntitys.where().findAll());
+    });
+  }
+
+  Future<void> saveHost({
+    required String host,
+    required List<int> openPorts,
+    required DateTime createdAt,
+  }) async {
+    final hostEntity = HostEntity()
+      ..host = host
+      ..openPorts = openPorts
+      ..createdAt = createdAt
+      ..isFavorite = false;
+
+    await isar.writeTxn(() async {
+      await isar.hostEntitys.put(hostEntity);
+    });
+  }
+}
