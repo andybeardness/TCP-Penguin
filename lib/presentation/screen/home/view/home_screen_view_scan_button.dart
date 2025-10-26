@@ -22,16 +22,21 @@ class HomeScreenViewScanButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Function()? onPressedEnabled;
-    if (entity.isEnabled) {
-      onPressedEnabled = onPressed;
-    } else {
-      onPressedEnabled = null;
-    }
-
-    return ElevatedButton(
-      onPressed: onPressedEnabled,
-      child: Text(entity.label),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ElevatedButton(
+        onPressed: entity.isEnabled ? onPressed : null,
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 48),
+          backgroundColor: entity.isEnabled
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.primary.withAlpha(100),
+          foregroundColor: entity.isEnabled
+              ? Theme.of(context).colorScheme.onPrimary
+              : Theme.of(context).colorScheme.onPrimary.withAlpha(100),
+        ),
+        child: Text(entity.label),
+      ),
     );
   }
 }

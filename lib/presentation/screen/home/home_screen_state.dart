@@ -1,6 +1,9 @@
 import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
+import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
+import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
+import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_saved_hosts.dart';
+import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_progress_bar.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_workers.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_port_range.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_button.dart';
@@ -18,6 +21,30 @@ class HomeScreenStateViewItemSpacer extends HomeScreenStateViewItem {
   final CommonViewSpacerEntity entity;
 
   HomeScreenStateViewItemSpacer({required this.entity});
+}
+
+class HomeScreenStateViewItemTitle extends HomeScreenStateViewItem {
+  final CommonViewTitleEntity entity;
+
+  HomeScreenStateViewItemTitle({required this.entity});
+}
+
+class HomeScreenStateViewItemSubtitle extends HomeScreenStateViewItem {
+  final CommonViewSubtitleEntity entity;
+
+  HomeScreenStateViewItemSubtitle({required this.entity});
+}
+
+class HomeScreenStateViewItemText extends HomeScreenStateViewItem {
+  final CommonViewTextEntity entity;
+
+  HomeScreenStateViewItemText({required this.entity});
+}
+
+class HomeScreenStateViewItemProgressBar extends HomeScreenStateViewItem {
+  final HomeScreenViewProgressBarEntity entity;
+
+  HomeScreenStateViewItemProgressBar({required this.entity});
 }
 
 class HomeScreenStateViewItemHost extends HomeScreenStateViewItem {
@@ -42,12 +69,6 @@ class HomeScreenStateViewItemTimeout extends HomeScreenStateViewItem {
   final HomeScreenViewTimeoutEntity entity;
 
   HomeScreenStateViewItemTimeout({required this.entity});
-}
-
-class HomeScreenStateViewItemSavedHosts extends HomeScreenStateViewItem {
-  final HomeScreenViewSavedHostsEntity entity;
-
-  HomeScreenStateViewItemSavedHosts({required this.entity});
 }
 
 class HomeScreenStateViewItemScanButton extends HomeScreenStateViewItem {

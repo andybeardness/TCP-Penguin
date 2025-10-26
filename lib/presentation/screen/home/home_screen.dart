@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tcp_penguin/app/di/di.dart';
 import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
+import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
+import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
+import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_action.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_state.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_view_model.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_saved_hosts.dart';
+import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_progress_bar.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_workers.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_port_range.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_button.dart';
@@ -20,8 +23,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final HomeScreenViewModel viewModel;
-  List<int> openPorts = [];
-  List<int> closedPorts = [];
 
   @override
   void initState() {
@@ -38,7 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('🐧 TCP Penguin')),
+      appBar: AppBar(
+        title: const Text('🐧 TCP Penguin'),
+        actions: [
+          IconButton(icon: const Icon(Icons.save_rounded), onPressed: () {}),
+        ],
+      ),
       body: StreamBuilder(
         stream: viewModel.state,
         builder: (context, snapshot) {
@@ -56,6 +62,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: items.map((item) {
                 if (item is HomeScreenStateViewItemSpacer) {
                   return CommonViewSpacer(entity: item.entity);
+                } else if (item is HomeScreenStateViewItemTitle) {
+                  return CommonViewTitle(entity: item.entity);
+                } else if (item is HomeScreenStateViewItemSubtitle) {
+                  return CommonViewSubtitle(entity: item.entity);
+                } else if (item is HomeScreenStateViewItemText) {
+                  return CommonViewText(entity: item.entity);
+                } else if (item is HomeScreenStateViewItemProgressBar) {
+                  return HomeScreenViewProgressBar(entity: item.entity);
                 } else if (item is HomeScreenStateViewItemHost) {
                   return HomeScreenViewHost(
                     entity: item.entity,
@@ -105,8 +119,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   );
-                } else if (item is HomeScreenStateViewItemSavedHosts) {
-                  return HomeScreenViewSavedHosts(entity: item.entity);
                 } else if (item is HomeScreenStateViewItemScanButton) {
                   return HomeScreenViewScanButton(
                     entity: item.entity,

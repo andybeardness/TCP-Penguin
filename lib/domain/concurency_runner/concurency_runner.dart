@@ -12,11 +12,15 @@ class ConcurencyRunner {
     required int portStart,
     required int portEnd,
     required int maxConcurrent,
+    required Function(double progress) onProgress,
   }) async {
     final pool = Pool(maxConcurrent);
-    final List<Future<void>> tasks = [];
 
+    final List<Future<void>> tasks = [];
     final List<int> openPorts = [];
+
+    final totalPorts = portEnd - portStart + 1;
+    int completedPorts = 0;
 
     for (var port = portStart; port <= portEnd; port++) {
       final resource = await pool.request();
@@ -35,6 +39,8 @@ class ConcurencyRunner {
             );
           } finally {
             resource.release();
+            completedPorts++;
+            onProgress(completedPorts / totalPorts);
           }
         }),
       );
