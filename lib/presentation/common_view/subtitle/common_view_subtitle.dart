@@ -18,7 +18,7 @@ class CommonViewSubtitle extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Text(
         entity.subtitle,
-        style: Theme.of(context).textTheme.bodyLarge,
+        style: Theme.of(context).textTheme.titleSmall,
       ),
     );
   }

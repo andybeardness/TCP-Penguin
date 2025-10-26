@@ -79,7 +79,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
-            entity: CommonViewTitleEntity(title: 'Progress'),
+            entity: CommonViewTitleEntity(title: '🤔 Progress'),
           ),
         );
 
@@ -105,8 +105,8 @@ class HomeScreenViewModel {
           HomeScreenStateViewItemText(
             entity: CommonViewTextEntity(
               text: (progress ?? 0) > 0
-                  ? 'Scanning in progress, don\'t close the app'
-                  : 'Ready to start a new scan',
+                  ? '⏳ Scanning in progress, don\'t close the app'
+                  : '👍 Ready to start a new scan',
             ),
           ),
         );
@@ -119,7 +119,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
-            entity: CommonViewTitleEntity(title: 'Result'),
+            entity: CommonViewTitleEntity(title: '📊 Result'),
           ),
         );
 
@@ -133,8 +133,8 @@ class HomeScreenViewModel {
           HomeScreenStateViewItemSubtitle(
             entity: CommonViewSubtitleEntity(
               subtitle: openPortsResult != null
-                  ? 'Host: ${openPortsResult.host}'
-                  : 'Host: ...',
+                  ? '– Host: ${openPortsResult.host}'
+                  : '– Host: ...',
             ),
           ),
         );
@@ -149,8 +149,8 @@ class HomeScreenViewModel {
           HomeScreenStateViewItemSubtitle(
             entity: CommonViewSubtitleEntity(
               subtitle: openPortsResult != null
-                  ? 'Open ports: ${openPortsResult.openPorts.join(', ')}'
-                  : 'Open ports: ...',
+                  ? '– Open ports: ${openPortsResult.openPorts.join(', ')}'
+                  : '– Open ports: ...',
             ),
           ),
         );
@@ -163,7 +163,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
-            entity: CommonViewTitleEntity(title: 'Data'),
+            entity: CommonViewTitleEntity(title: '✍️ Data'),
           ),
         );
 
