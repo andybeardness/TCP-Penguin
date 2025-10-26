@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tcp_penguin/app/di/di.dart';
 import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
 import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
 import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
 import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_action.dart';
+import 'package:tcp_penguin/presentation/screen/home/home_screen_event.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_state.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_view_model.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     viewModel = getIt<HomeScreenViewModel>();
+    viewModel.event.listen(handleEvent);
   }
 
   @override
@@ -36,13 +39,26 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  void handleEvent(HomeScreenEvent event) {
+    if (event is HomeScreenEventNavigateToSavedScans) {
+      context.push('/saved_scans');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('🐧 TCP Penguin'),
         actions: [
-          IconButton(icon: const Icon(Icons.save_rounded), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.save_rounded),
+            onPressed: () {
+              viewModel.handleAction(
+                action: HomeScreenActionOnClickSavedScans(),
+              );
+            },
+          ),
         ],
       ),
       body: StreamBuilder(

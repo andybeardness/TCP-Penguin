@@ -1,5 +1,7 @@
 sealed class HomeScreenAction {}
 
+class HomeScreenActionOnClickSavedScans extends HomeScreenAction {}
+
 class HomeScreenActionUpdateHost extends HomeScreenAction {
   final String newHost;
 

@@ -7,6 +7,7 @@ import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtit
 import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
 import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_action.dart';
+import 'package:tcp_penguin/presentation/screen/home/home_screen_event.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_state.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_progress_bar.dart';
@@ -30,6 +31,8 @@ class HomeScreenViewModel {
   final BehaviorSubject<HomeScreenState> state = BehaviorSubject.seeded(
     HomeScreenState(viewItems: []),
   );
+
+  final BehaviorSubject<HomeScreenEvent> event = BehaviorSubject();
 
   final BehaviorSubject<String> _host = BehaviorSubject.seeded(
     "scanme.nmap.org",
@@ -79,7 +82,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
-            entity: CommonViewTitleEntity(title: '🤔 Progress'),
+            entity: CommonViewTitleEntity(title: 'Progress'),
           ),
         );
 
@@ -105,8 +108,8 @@ class HomeScreenViewModel {
           HomeScreenStateViewItemText(
             entity: CommonViewTextEntity(
               text: (progress ?? 0) > 0
-                  ? '⏳ Scanning in progress, don\'t close the app'
-                  : '👍 Ready to start a new scan',
+                  ? 'Scanning in progress, don\'t close the app'
+                  : 'Ready to start a new scan',
             ),
           ),
         );
@@ -119,7 +122,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
-            entity: CommonViewTitleEntity(title: '📊 Result'),
+            entity: CommonViewTitleEntity(title: 'Result'),
           ),
         );
 
@@ -163,7 +166,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
-            entity: CommonViewTitleEntity(title: '✍️ Data'),
+            entity: CommonViewTitleEntity(title: 'Data'),
           ),
         );
 
@@ -293,7 +296,9 @@ class HomeScreenViewModel {
   }
 
   Future<void> handleAction({required HomeScreenAction action}) async {
-    if (action is HomeScreenActionUpdateHost) {
+    if (action is HomeScreenActionOnClickSavedScans) {
+      event.add(HomeScreenEventNavigateToSavedScans());
+    } else if (action is HomeScreenActionUpdateHost) {
       _host.add(action.newHost);
     } else if (action is HomeScreenActionUpdateStartPort) {
       _startPort.add(action.newStartPort);

@@ -28,4 +28,10 @@ class HostRepository {
       await isar.hostEntitys.put(hostEntity);
     });
   }
+
+  Future<void> deleteHost({required int id}) async {
+    await isar.writeTxn(() async {
+      await isar.hostEntitys.delete(id);
+    });
+  }
 }
