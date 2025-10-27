@@ -2,6 +2,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:tcp_penguin/domain/concurency_runner/concurency_runner.dart';
 import 'package:tcp_penguin/domain/host_saver/host_saver.dart';
 import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner.dart';
+import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
 import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
 import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
 import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
@@ -296,7 +297,20 @@ class HomeScreenViewModel {
   }
 
   Future<void> handleAction({required HomeScreenAction action}) async {
-    if (action is HomeScreenActionOnClickSavedScans) {
+    if (action is HomeScreenActionFirstOpenScreen) {
+      event.add(
+        HomeScreenEventShowDonateDialog(
+          entity: CommonDialogDonationEntity(
+            title: "Support the Developer",
+            subtitle:
+                "If you enjoy using this app, you can support the developer by making a donation",
+            cancelText: "Later",
+            confirmText: "☕️ Donate",
+            confirmUrl: "https://ko-fi.com/andybeardness",
+          ),
+        ),
+      );
+    } else if (action is HomeScreenActionOnClickSavedScans) {
       event.add(HomeScreenEventNavigateToSavedScans());
     } else if (action is HomeScreenActionUpdateHost) {
       _host.add(action.newHost);

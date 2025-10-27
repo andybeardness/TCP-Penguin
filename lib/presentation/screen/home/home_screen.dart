@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tcp_penguin/app/di/di.dart';
+import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
 import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
 import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
 import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
@@ -31,6 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     viewModel = getIt<HomeScreenViewModel>();
     viewModel.event.listen(handleEvent);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel.handleAction(action: HomeScreenActionFirstOpenScreen());
+    });
   }
 
   @override
@@ -40,7 +45,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void handleEvent(HomeScreenEvent event) {
-    if (event is HomeScreenEventNavigateToSavedScans) {
+    if (!mounted) return;
+    if (event is HomeScreenEventShowDonateDialog) {
+      CommonDialogDonation.show(
+        context: context,
+        entity: event.entity,
+        onCancel: () {
+          context.pop();
+        },
+        onConfirm: () {
+          context.pop();
+        },
+      );
+    } else if (event is HomeScreenEventNavigateToSavedScans) {
       context.push('/saved_scans');
     }
   }

@@ -1,5 +1,7 @@
 sealed class HomeScreenAction {}
 
+class HomeScreenActionFirstOpenScreen extends HomeScreenAction {}
+
 class HomeScreenActionOnClickSavedScans extends HomeScreenAction {}
 
 class HomeScreenActionUpdateHost extends HomeScreenAction {
