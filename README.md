@@ -1,5 +1,7 @@
 # 🐧 TCP Penguin
 
+![logo](preview/logo.png)
+
 **TCP Penguin** is a fast and elegant **cross-platform TCP port scanner** built on **Flutter**, powered by **Isar** for local persistence and **RxDart** for reactive architecture.  
 Designed for engineers who value performance, simplicity, and full ecosystem portability.
 
