@@ -1,121 +1,112 @@
 # 🐧 TCP Penguin
 
-**TCP Penguin** — это кроссплатформенный сканер портов, созданный на **Flutter** с использованием **Isar** и реактивной архитектуры на **RxDart**.  
-Лёгкий, быстрый и минималистичный инструмент для диагностики устройств в локальной сети.
+**TCP Penguin** is a fast and elegant **cross-platform TCP port scanner** built on **Flutter**, powered by **Isar** for local persistence and **RxDart** for reactive architecture.  
+Designed for engineers who value performance, simplicity, and full ecosystem portability.
 
 ---
 
-## ✨ Возможности
+## 🚀 Why TCP Penguin?
 
-- 🔍 **Сканирование локальных хостов и диапазонов портов**
-- ⚡ **Параллельное выполнение** с ограничением по пулу задач
-- 📡 **Автоматическое определение открытых TCP-портов**
-- 💾 **Локальное хранение истории** (Isar Database)
-- 🧭 **Кроссплатформенность:** Android / iOS / macOS / Windows / Linux
-- 🌈 **Современный Flutter UI** с плавными анимациями
-- 🧩 **DI через GetIt** и модульная архитектура
-- 🧰 **Логгирование и аналитика** (в dev-сборках)
+✅ High-performance concurrent scanning  
+✅ Smart resolution of open TCP ports  
+✅ Persistent history storage using Isar Database  
+✅ Real-time reactive UI driven by streams  
+✅ Android / iOS support  
+✅ Clean modular architecture with DI (GetIt)  
+✅ Built for both developers and network engineers  
 
----
-
-## 🛠️ Технологии
-
-| Компонент | Технология |
-|------------|-------------|
-| UI / Framework | Flutter 3.35+ |
-| Хранение данных | Isar Database |
-| Реактивность | RxDart |
-| DI / Modularization | GetIt |
-| Параллелизм | ConcurrencyRunner |
-| Минимальная версия Android | 7.0 (API 24) |
-| Минимальная версия iOS | 13.0 |
+> *Zero bloat. Pure speed.*
 
 ---
 
-## ⚙️ Установка и запуск
+## 📱 Screenshots
 
-### 📦 Клонирование репозитория
+### Flow
+
+![flow](preview/flow.gif)
+
+### Dark theme
+
+![light](preview/dark.png)
+
+### Saved scans
+
+![saved](preview/saved.png)
+
+### Donation dialog
+
+![donation](preview/donation.png)
+
+---
+
+## 🧩 Tech Stack
+
+| Area | Technology |
+|------|------------|
+| Framework | Flutter 3.35+ |
+| State / Streams | RxDart |
+| Local DB | Isar |
+| Navigation | GoRouter |
+| Dependency Injection | GetIt |
+| Async Execution | ConcurrencyRunner |
+| Min Android | API 24+ |
+| Min iOS | 13.0 |
+
+---
+
+## 📦 Run the App
+
 ```bash
 git clone https://github.com/andybeardness/tcp_penguin.git
 cd tcp_penguin
-```
-
-### 🚀 Запуск приложения
-```bash
 flutter pub get
 flutter run
 ```
 
-> 💡 Совет: для Android-версии убедись, что включён `INTERNET` permission (добавлен в `AndroidManifest.xml`),  
-> а для iOS — указан `NSLocalNetworkUsageDescription` в `Info.plist`.
+⚠️ Permissions to add manually:
+- **Android:** `INTERNET` in `AndroidManifest.xml`
+- **iOS:** `NSLocalNetworkUsageDescription` in `Info.plist`
 
 ---
 
-## 🧱 Структура проекта
+## 📐 Architecture Overview
+
+TCP Penguin follows **Clean Architecture** principles:
 
 ```
 lib/
- ├── app/                # Инициализация приложения и маршрутизация
- ├── data/               # Репозитории, модели, источники данных
- ├── domain/             # Сущности и бизнес-логика
- ├── presentation/       # UI и виджеты
- ├── di/                 # DI модули (GetIt)
- └── main.dart           # Точка входа
+ ├─ app/           # App bootstrap and navigation
+ ├─ data/          # Repos, models, database sources
+ ├─ domain/        # Core business rules and use cases
+ ├─ presentation/  # UI, widgets, view models
+ └─ di/            # All dependency registration modules
 ```
 
----
-
-## 🧠 Архитектура
-
-Проект построен по принципам **Clean Architecture**:
-- Чистое разделение ответственности между слоями
-- Использование **DI** для слабой связности компонентов
-- Реактивное управление состоянием на основе потоков (`RxDart`)
-- Отложенная инициализация зависимостей (`setupDI()`)
+Key highlights:
+- **Feature-first** structure
+- **Reactive flow**: Domain → Presentation
+- **Low coupling** and **high testability**
 
 ---
 
-## 🧩 Пример кода
+## 🔐 Usage Ethics
 
-```dart
-final scanner = TcpScanner(
-  concurrency: 128,
-  timeout: const Duration(milliseconds: 500),
-);
-
-scanner.scanHost('192.168.1.1', ports: [22, 80, 443]).listen((result) {
-  print('${result.port} → ${result.isOpen ? 'OPEN' : 'CLOSED'}');
-});
-```
+> **You are responsible for your scans.**  
+> Use TCP Penguin **only** on networks where you have explicit authorization.  
+> Unauthorized network probing may violate cybersecurity laws.
 
 ---
 
-## 🧾 Лицензия
+## 💬 Author
 
-Этот проект распространяется под лицензией **MIT**.  
-Полный текст лицензии см. в файле [LICENSE](./LICENSE).
-
----
-
-## ⚠️ Этическое использование
-
-> ⚠️ **Важно:** TCP Penguin предназначен **исключительно для анализа собственных сетей**  
-> или тех, на сканирование которых у вас есть разрешение.  
-> Любое несанкционированное использование может нарушать законы о кибербезопасности.
+**Andy Beardness**  
+Android / Flutter / Rust Engineer  
 
 ---
 
-## 🐧 Автор
+## ⭐ Support the Project
 
-**Андрей “Beardness”**  
-Android / Flutter / Rust инженер  
-[GitHub](https://github.com/andybeardness) • [Telegram](https://t.me/andybeardness)
+If this tool helped you — star the repo ❤️  
+It keeps the penguin happy.
 
----
-
-## 💬 Благодарности
-
-- [Isar](https://isar.dev/) — за быстрый оффлайн-движок  
-- [RxDart](https://pub.dev/packages/rxdart) — за мощную реактивность  
-- [GetIt](https://pub.dev/packages/get_it) — за лаконичный DI  
-- И всем, кто помогает делать сеть понятнее 🌐
+🐧✨
