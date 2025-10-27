@@ -4,6 +4,8 @@ class HomeScreenActionFirstOpenScreen extends HomeScreenAction {}
 
 class HomeScreenActionOnClickSavedScans extends HomeScreenAction {}
 
+class HomeScreenActionOnClickDonation extends HomeScreenAction {}
+
 class HomeScreenActionUpdateHost extends HomeScreenAction {
   final String newHost;
 

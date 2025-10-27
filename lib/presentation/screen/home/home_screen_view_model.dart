@@ -299,16 +299,11 @@ class HomeScreenViewModel {
   Future<void> handleAction({required HomeScreenAction action}) async {
     if (action is HomeScreenActionFirstOpenScreen) {
       event.add(
-        HomeScreenEventShowDonateDialog(
-          entity: CommonDialogDonationEntity(
-            title: "Support the Developer",
-            subtitle:
-                "If you enjoy using this app, you can support the developer by making a donation",
-            cancelText: "Later",
-            confirmText: "☕️ Donate",
-            confirmUrl: "https://ko-fi.com/andybeardness",
-          ),
-        ),
+        HomeScreenEventShowDonateDialog(entity: _buildDonationDialogEntity()),
+      );
+    } else if (action is HomeScreenActionOnClickDonation) {
+      event.add(
+        HomeScreenEventShowDonateDialog(entity: _buildDonationDialogEntity()),
       );
     } else if (action is HomeScreenActionOnClickSavedScans) {
       event.add(HomeScreenEventNavigateToSavedScans());
@@ -352,5 +347,16 @@ class HomeScreenViewModel {
 
       _progress.add(null);
     }
+  }
+
+  CommonDialogDonationEntity _buildDonationDialogEntity() {
+    return CommonDialogDonationEntity(
+      title: "Support the Developer",
+      subtitle:
+          "If you enjoy using this app, you can support the developer by making a donation",
+      cancelText: "Later",
+      confirmText: "☕️ Donate",
+      confirmUrl: "https://ko-fi.com/andybeardness",
+    );
   }
 }

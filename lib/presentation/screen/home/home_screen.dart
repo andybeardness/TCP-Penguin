@@ -69,6 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('🐧 TCP Penguin'),
         actions: [
           IconButton(
+            icon: const Icon(Icons.coffee_rounded),
+            onPressed: () {
+              viewModel.handleAction(action: HomeScreenActionOnClickDonation());
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.save_rounded),
             onPressed: () {
               viewModel.handleAction(
