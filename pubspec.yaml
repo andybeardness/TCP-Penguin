@@ -1,6 +1,10 @@
 name: tcp_penguin
-description: "A new Flutter project."
+description: "Fast and simple TCP port scanner for Android"
+homepage: https://github.com/andybeardness/TCP-Penguin-Flutter
+repository: https://github.com/andybeardness/TCP-Penguin-Flutter
+issue_tracker: https://github.com/andybeardness/TCP-Penguin-Flutter/issues
 publish_to: 'none'
+
 version: 1.0.0+1
 
 environment:
