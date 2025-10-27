@@ -21,21 +21,8 @@ Designed for engineers who value performance, simplicity, and full ecosystem por
 
 ## 📱 Screenshots
 
-### Flow
-
-![flow](preview/flow.gif)
-
-### Dark theme
-
-![light](preview/dark.png)
-
-### Saved scans
-
-![saved](preview/saved.png)
-
-### Donation dialog
-
-![donation](preview/donation.png)
+| ![flow](preview/flow.gif) | ![light](preview/dark.png) | ![saved](preview/saved.png) | ![donation](preview/donation.png)
+| ---- | ---- | ---- | ---- |
 
 ---
 
