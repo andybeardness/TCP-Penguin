@@ -45,72 +45,69 @@ class _HomeScreenViewPortRangeState extends State<HomeScreenViewPortRange> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                labelText: 'Start Port (1-...)',
-                border: OutlineInputBorder(),
-                errorText: widget.entity.startPortErrorText,
-              ),
-              controller: _startPortController,
-              keyboardType: TextInputType.number,
-              onChanged: (String newStartPort) {
-                if (newStartPort.isEmpty) {
-                  widget.onStartPortChanged(newStartPort);
-                  return;
-                }
-
-                final startPort = int.tryParse(newStartPort);
-
-                if (startPort == null || startPort < 1) {
-                  newStartPort = '1';
-                } else if (startPort > 65535) {
-                  newStartPort = '65535';
-                }
-
-                _startPortController.text = newStartPort;
-
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'Start Port (1-...)',
+              border: OutlineInputBorder(),
+              errorText: widget.entity.startPortErrorText,
+            ),
+            controller: _startPortController,
+            keyboardType: TextInputType.number,
+            onChanged: (String newStartPort) {
+              if (newStartPort.isEmpty) {
                 widget.onStartPortChanged(newStartPort);
-              },
-            ),
+                return;
+              }
+
+              final startPort = int.tryParse(newStartPort);
+
+              if (startPort == null || startPort < 1) {
+                newStartPort = '1';
+              } else if (startPort > 65535) {
+                newStartPort = '65535';
+              }
+
+              _startPortController.text = newStartPort;
+
+              widget.onStartPortChanged(newStartPort);
+            },
           ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                labelText: 'End Port (...-65535)',
-                border: OutlineInputBorder(),
-                errorText: widget.entity.endPortErrorText,
-              ),
-              controller: _endPortController,
-              keyboardType: TextInputType.number,
-              onChanged: (String newEndPort) {
-                if (newEndPort.isEmpty) {
-                  widget.onEndPortChanged(newEndPort);
-                  return;
-                }
-
-                final endPort = int.tryParse(newEndPort);
-
-                if (endPort == null || endPort < 1) {
-                  newEndPort = '1';
-                } else if (endPort > 65535) {
-                  newEndPort = '65535';
-                }
-
-                _endPortController.text = newEndPort;
-
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: 'End Port (...-65535)',
+              border: OutlineInputBorder(),
+              errorText: widget.entity.endPortErrorText,
+            ),
+            controller: _endPortController,
+            keyboardType: TextInputType.number,
+            onChanged: (String newEndPort) {
+              if (newEndPort.isEmpty) {
                 widget.onEndPortChanged(newEndPort);
-              },
-            ),
+                return;
+              }
+
+              final endPort = int.tryParse(newEndPort);
+
+              if (endPort == null || endPort < 1) {
+                newEndPort = '1';
+              } else if (endPort > 65535) {
+                newEndPort = '65535';
+              }
+
+              _endPortController.text = newEndPort;
+
+              widget.onEndPortChanged(newEndPort);
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

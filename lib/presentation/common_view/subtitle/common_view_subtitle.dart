@@ -13,9 +13,8 @@ class CommonViewSubtitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16),
       child: Text(
         entity.subtitle,
         style: Theme.of(context).textTheme.titleSmall,

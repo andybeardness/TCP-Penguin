@@ -37,35 +37,32 @@ class _HomeScreenViewWorkersState extends State<HomeScreenViewWorkers> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: 'Workers (1-500)',
-          border: OutlineInputBorder(),
-          errorText: widget.entity.errorText,
-        ),
-        controller: _controller,
-        keyboardType: TextInputType.number,
-        onChanged: (String newWorkersCount) {
-          if (newWorkersCount.isEmpty) {
-            widget.onMaxWorkersChanged(newWorkersCount);
-            return;
-          }
-
-          final count = int.tryParse(newWorkersCount);
-
-          if (count == null || count <= 0) {
-            newWorkersCount = '1';
-          } else if (count >= 500) {
-            newWorkersCount = '500';
-          }
-
-          _controller.text = newWorkersCount;
-
-          widget.onMaxWorkersChanged(newWorkersCount);
-        },
+    return TextField(
+      decoration: InputDecoration(
+        labelText: 'Workers (1-500)',
+        border: OutlineInputBorder(),
+        errorText: widget.entity.errorText,
       ),
+      controller: _controller,
+      keyboardType: TextInputType.number,
+      onChanged: (String newWorkersCount) {
+        if (newWorkersCount.isEmpty) {
+          widget.onMaxWorkersChanged(newWorkersCount);
+          return;
+        }
+
+        final count = int.tryParse(newWorkersCount);
+
+        if (count == null || count <= 0) {
+          newWorkersCount = '1';
+        } else if (count >= 500) {
+          newWorkersCount = '500';
+        }
+
+        _controller.text = newWorkersCount;
+
+        widget.onMaxWorkersChanged(newWorkersCount);
+      },
     );
   }
 }

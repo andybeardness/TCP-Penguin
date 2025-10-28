@@ -32,18 +32,15 @@ class _HomeScreenViewHostState extends State<HomeScreenViewHost> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: 'Host',
-          border: const OutlineInputBorder(),
-          errorText: widget.entity.errorText,
-        ),
-        textCapitalization: TextCapitalization.none,
-        controller: _controller,
-        onChanged: widget.onHostChanged,
+    return TextField(
+      decoration: InputDecoration(
+        labelText: 'Host',
+        border: const OutlineInputBorder(),
+        errorText: widget.entity.errorText,
       ),
+      textCapitalization: TextCapitalization.none,
+      controller: _controller,
+      onChanged: widget.onHostChanged,
     );
   }
 }

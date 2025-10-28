@@ -13,13 +13,10 @@ class HomeScreenViewProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: LinearProgressIndicator(
-        value: entity.progress,
-        minHeight: 32,
-        borderRadius: BorderRadius.circular(8),
-      ),
+    return LinearProgressIndicator(
+      value: entity.progress,
+      minHeight: 32,
+      borderRadius: BorderRadius.circular(8),
     );
   }
 }

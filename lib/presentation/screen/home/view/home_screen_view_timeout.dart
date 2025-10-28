@@ -37,35 +37,32 @@ class _HomeScreenViewTimeoutState extends State<HomeScreenViewTimeout> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: 'Timeout ms (1-60000)',
-          border: OutlineInputBorder(),
-          errorText: widget.entity.errorText,
-        ),
-        controller: _controller,
-        keyboardType: TextInputType.number,
-        onChanged: (String newTimeoutMs) {
-          if (newTimeoutMs.isEmpty) {
-            widget.onTimeoutChanged(newTimeoutMs);
-            return;
-          }
-
-          final timeout = int.tryParse(newTimeoutMs);
-
-          if (timeout == null || timeout <= 1) {
-            newTimeoutMs = '1';
-          } else if (timeout >= 60000) {
-            newTimeoutMs = '60000';
-          }
-
-          _controller.text = newTimeoutMs;
-
-          widget.onTimeoutChanged(newTimeoutMs);
-        },
+    return TextField(
+      decoration: InputDecoration(
+        labelText: 'Timeout ms (1-60000)',
+        border: OutlineInputBorder(),
+        errorText: widget.entity.errorText,
       ),
+      controller: _controller,
+      keyboardType: TextInputType.number,
+      onChanged: (String newTimeoutMs) {
+        if (newTimeoutMs.isEmpty) {
+          widget.onTimeoutChanged(newTimeoutMs);
+          return;
+        }
+
+        final timeout = int.tryParse(newTimeoutMs);
+
+        if (timeout == null || timeout <= 1) {
+          newTimeoutMs = '1';
+        } else if (timeout >= 60000) {
+          newTimeoutMs = '60000';
+        }
+
+        _controller.text = newTimeoutMs;
+
+        widget.onTimeoutChanged(newTimeoutMs);
+      },
     );
   }
 }
