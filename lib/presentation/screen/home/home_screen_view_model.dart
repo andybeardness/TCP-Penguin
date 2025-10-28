@@ -77,36 +77,42 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_top',
             entity: CommonViewSpacerEntity(height: 16),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
+            key: 'title_progress',
             entity: CommonViewTitleEntity(title: 'Progress'),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_title_progress',
             entity: CommonViewSpacerEntity(height: 4),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemProgressBar(
+            key: 'progress_bar',
             entity: HomeScreenViewProgressBarEntity(progress: progress ?? 0),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_progress_bar',
             entity: CommonViewSpacerEntity(height: 4),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemText(
+            key: 'text_progress_status',
             entity: CommonViewTextEntity(
               text: (progress ?? 0) > 0
                   ? 'Scanning in progress, don\'t close the app'
@@ -117,24 +123,28 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_text_progress_status',
             entity: CommonViewSpacerEntity(height: 16),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
+            key: 'title_result',
             entity: CommonViewTitleEntity(title: 'Result'),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_title_result',
             entity: CommonViewSpacerEntity(height: 4),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemSubtitle(
+            key: 'subtitle_result_host',
             entity: CommonViewSubtitleEntity(
               subtitle: openPortsResult != null
                   ? '– Host: ${openPortsResult.host}'
@@ -145,12 +155,14 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_subtitle_result_host',
             entity: CommonViewSpacerEntity(height: 4),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemSubtitle(
+            key: 'subtitle_result_open_ports',
             entity: CommonViewSubtitleEntity(
               subtitle: openPortsResult != null
                   ? '– Open ports: ${openPortsResult.openPorts.join(', ')}'
@@ -161,18 +173,21 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_subtitle_result_open_ports',
             entity: CommonViewSpacerEntity(height: 16),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemTitle(
+            key: 'title_data',
             entity: CommonViewTitleEntity(title: 'Data'),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_title_data',
             entity: CommonViewSpacerEntity(height: 8),
           ),
         );
@@ -185,6 +200,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemHost(
+            key: 'host',
             entity: HomeScreenViewHostEntity(
               host: host,
               errorText: hostErrorText,
@@ -194,6 +210,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_host',
             entity: CommonViewSpacerEntity(height: 8),
           ),
         );
@@ -212,6 +229,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemPortRange(
+            key: 'port_range',
             entity: HomeScreenViewPortRangeEntity(
               startPort: startPort,
               startPortErrorText: startPortErrorText,
@@ -223,6 +241,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_port_range',
             entity: CommonViewSpacerEntity(height: 8),
           ),
         );
@@ -235,6 +254,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemMaxWorkers(
+            key: 'max_workers',
             entity: HomeScreenViewWorkersEntity(
               maxWorkers: maxWorkers,
               errorText: workersErrorText,
@@ -244,6 +264,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_max_workers',
             entity: CommonViewSpacerEntity(height: 8),
           ),
         );
@@ -256,6 +277,7 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemTimeout(
+            key: 'timeout',
             entity: HomeScreenViewTimeoutEntity(
               timeoutMs: timeoutMs,
               errorText: timeoutErrorText,
@@ -265,12 +287,14 @@ class HomeScreenViewModel {
 
         viewItems.add(
           HomeScreenStateViewItemSpacer(
+            key: 'spacer_timeout',
             entity: CommonViewSpacerEntity(height: 16),
           ),
         );
 
         viewItems.add(
           HomeScreenStateViewItemScanButton(
+            key: 'button_scan',
             entity: HomeScreenViewScanButtonEntity(
               label: 'Start Scan TCP',
               isEnabled: !hasErrors && (progress ?? 0) == 0,
@@ -278,9 +302,18 @@ class HomeScreenViewModel {
           ),
         );
 
+        viewItems.add(
+          HomeScreenStateViewItemSpacer(
+            key: 'spacer_button_scan',
+            entity: CommonViewSpacerEntity(height: 32),
+          ),
+        );
+
         return HomeScreenState(viewItems: viewItems);
       },
-    ).listen((newState) async {
+    ).distinct().sampleTime(Duration(milliseconds: 20)).listen((
+      newState,
+    ) async {
       state.add(await newState);
     });
   }

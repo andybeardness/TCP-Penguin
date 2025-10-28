@@ -96,81 +96,103 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final items = snapshot.data?.viewItems ?? [];
-          return SingleChildScrollView(
-            child: Column(
-              children: items.map((item) {
-                if (item is HomeScreenStateViewItemSpacer) {
-                  return CommonViewSpacer(entity: item.entity);
-                } else if (item is HomeScreenStateViewItemTitle) {
-                  return CommonViewTitle(entity: item.entity);
-                } else if (item is HomeScreenStateViewItemSubtitle) {
-                  return CommonViewSubtitle(entity: item.entity);
-                } else if (item is HomeScreenStateViewItemText) {
-                  return CommonViewText(entity: item.entity);
-                } else if (item is HomeScreenStateViewItemProgressBar) {
-                  return HomeScreenViewProgressBar(entity: item.entity);
-                } else if (item is HomeScreenStateViewItemHost) {
-                  return HomeScreenViewHost(
-                    entity: item.entity,
-                    onHostChanged: (newHost) {
-                      viewModel.handleAction(
-                        action: HomeScreenActionUpdateHost(newHost: newHost),
-                      );
-                    },
-                  );
-                } else if (item is HomeScreenStateViewItemPortRange) {
-                  return HomeScreenViewPortRange(
-                    entity: item.entity,
-                    onStartPortChanged: (newStartPort) {
-                      viewModel.handleAction(
-                        action: HomeScreenActionUpdateStartPort(
-                          newStartPort: newStartPort,
-                        ),
-                      );
-                    },
-                    onEndPortChanged: (newEndPort) {
-                      viewModel.handleAction(
-                        action: HomeScreenActionUpdateEndPort(
-                          newEndPort: newEndPort,
-                        ),
-                      );
-                    },
-                  );
-                } else if (item is HomeScreenStateViewItemMaxWorkers) {
-                  return HomeScreenViewWorkers(
-                    entity: item.entity,
-                    onMaxWorkersChanged: (newMaxWorkers) {
-                      viewModel.handleAction(
-                        action: HomeScreenActionUpdateMaxWorkers(
-                          newMaxWorkers: newMaxWorkers,
-                        ),
-                      );
-                    },
-                  );
-                } else if (item is HomeScreenStateViewItemTimeout) {
-                  return HomeScreenViewTimeout(
-                    entity: item.entity,
-                    onTimeoutChanged: (newTimeout) {
-                      viewModel.handleAction(
-                        action: HomeScreenActionUpdateTimeout(
-                          newTimeoutMs: newTimeout,
-                        ),
-                      );
-                    },
-                  );
-                } else if (item is HomeScreenStateViewItemScanButton) {
-                  return HomeScreenViewScanButton(
-                    entity: item.entity,
-                    onPressed: () {
-                      viewModel.handleAction(
-                        action: HomeScreenActionOnClickScanButton(),
-                      );
-                    },
-                  );
-                }
-                return const SizedBox.shrink();
-              }).toList(),
-            ),
+
+          return ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+
+              if (item is HomeScreenStateViewItemSpacer) {
+                return CommonViewSpacer(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                );
+              } else if (item is HomeScreenStateViewItemTitle) {
+                return CommonViewTitle(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                );
+              } else if (item is HomeScreenStateViewItemSubtitle) {
+                return CommonViewSubtitle(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                );
+              } else if (item is HomeScreenStateViewItemText) {
+                return CommonViewText(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                );
+              } else if (item is HomeScreenStateViewItemProgressBar) {
+                return HomeScreenViewProgressBar(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                );
+              } else if (item is HomeScreenStateViewItemHost) {
+                return HomeScreenViewHost(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                  onHostChanged: (newHost) {
+                    viewModel.handleAction(
+                      action: HomeScreenActionUpdateHost(newHost: newHost),
+                    );
+                  },
+                );
+              } else if (item is HomeScreenStateViewItemPortRange) {
+                return HomeScreenViewPortRange(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                  onStartPortChanged: (newStartPort) {
+                    viewModel.handleAction(
+                      action: HomeScreenActionUpdateStartPort(
+                        newStartPort: newStartPort,
+                      ),
+                    );
+                  },
+                  onEndPortChanged: (newEndPort) {
+                    viewModel.handleAction(
+                      action: HomeScreenActionUpdateEndPort(
+                        newEndPort: newEndPort,
+                      ),
+                    );
+                  },
+                );
+              } else if (item is HomeScreenStateViewItemMaxWorkers) {
+                return HomeScreenViewWorkers(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                  onMaxWorkersChanged: (newMaxWorkers) {
+                    viewModel.handleAction(
+                      action: HomeScreenActionUpdateMaxWorkers(
+                        newMaxWorkers: newMaxWorkers,
+                      ),
+                    );
+                  },
+                );
+              } else if (item is HomeScreenStateViewItemTimeout) {
+                return HomeScreenViewTimeout(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                  onTimeoutChanged: (newTimeout) {
+                    viewModel.handleAction(
+                      action: HomeScreenActionUpdateTimeout(
+                        newTimeoutMs: newTimeout,
+                      ),
+                    );
+                  },
+                );
+              } else if (item is HomeScreenStateViewItemScanButton) {
+                return HomeScreenViewScanButton(
+                  key: ValueKey(item.key),
+                  entity: item.entity,
+                  onPressed: () {
+                    viewModel.handleAction(
+                      action: HomeScreenActionOnClickScanButton(),
+                    );
+                  },
+                );
+              }
+              return const SizedBox.shrink();
+            },
           );
         },
       ),

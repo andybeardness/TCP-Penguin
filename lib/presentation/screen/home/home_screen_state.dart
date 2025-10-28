@@ -15,64 +15,71 @@ class HomeScreenState {
   HomeScreenState({required this.viewItems});
 }
 
-sealed class HomeScreenStateViewItem {}
+sealed class HomeScreenStateViewItem {
+  final String key;
+
+  HomeScreenStateViewItem({required this.key});
+}
 
 class HomeScreenStateViewItemSpacer extends HomeScreenStateViewItem {
   final CommonViewSpacerEntity entity;
 
-  HomeScreenStateViewItemSpacer({required this.entity});
+  HomeScreenStateViewItemSpacer({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemTitle extends HomeScreenStateViewItem {
   final CommonViewTitleEntity entity;
 
-  HomeScreenStateViewItemTitle({required this.entity});
+  HomeScreenStateViewItemTitle({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemSubtitle extends HomeScreenStateViewItem {
   final CommonViewSubtitleEntity entity;
 
-  HomeScreenStateViewItemSubtitle({required this.entity});
+  HomeScreenStateViewItemSubtitle({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemText extends HomeScreenStateViewItem {
   final CommonViewTextEntity entity;
 
-  HomeScreenStateViewItemText({required this.entity});
+  HomeScreenStateViewItemText({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemProgressBar extends HomeScreenStateViewItem {
   final HomeScreenViewProgressBarEntity entity;
 
-  HomeScreenStateViewItemProgressBar({required this.entity});
+  HomeScreenStateViewItemProgressBar({
+    required super.key,
+    required this.entity,
+  });
 }
 
 class HomeScreenStateViewItemHost extends HomeScreenStateViewItem {
   final HomeScreenViewHostEntity entity;
 
-  HomeScreenStateViewItemHost({required this.entity});
+  HomeScreenStateViewItemHost({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemPortRange extends HomeScreenStateViewItem {
   final HomeScreenViewPortRangeEntity entity;
 
-  HomeScreenStateViewItemPortRange({required this.entity});
+  HomeScreenStateViewItemPortRange({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemMaxWorkers extends HomeScreenStateViewItem {
   final HomeScreenViewWorkersEntity entity;
 
-  HomeScreenStateViewItemMaxWorkers({required this.entity});
+  HomeScreenStateViewItemMaxWorkers({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemTimeout extends HomeScreenStateViewItem {
   final HomeScreenViewTimeoutEntity entity;
 
-  HomeScreenStateViewItemTimeout({required this.entity});
+  HomeScreenStateViewItemTimeout({required super.key, required this.entity});
 }
 
 class HomeScreenStateViewItemScanButton extends HomeScreenStateViewItem {
   final HomeScreenViewScanButtonEntity entity;
 
-  HomeScreenStateViewItemScanButton({required this.entity});
+  HomeScreenStateViewItemScanButton({required super.key, required this.entity});
 }
