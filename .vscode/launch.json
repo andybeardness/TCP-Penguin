@@ -5,18 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "tcp_penguin",
+            "name": "Debug",
             "request": "launch",
             "type": "dart",
+            "flutterMode": "debug"
         },
         {
-            "name": "tcp_penguin (profile mode)",
+            "name": "Profile",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "tcp_penguin (release mode)",
+            "name": "Release",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
