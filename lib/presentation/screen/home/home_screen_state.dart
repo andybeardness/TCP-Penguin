@@ -3,7 +3,6 @@ import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtit
 import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
 import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_progress_bar.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_workers.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_port_range.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_button.dart';
@@ -45,14 +44,14 @@ class HomeScreenStateViewItemText extends HomeScreenStateViewItem {
   HomeScreenStateViewItemText({required super.key, required this.entity});
 }
 
-class HomeScreenStateViewItemProgressBar extends HomeScreenStateViewItem {
-  final HomeScreenViewProgressBarEntity entity;
+// class HomeScreenStateViewItemProgressBar extends HomeScreenStateViewItem {
+//   final HomeScreenViewProgressBarEntity entity;
 
-  HomeScreenStateViewItemProgressBar({
-    required super.key,
-    required this.entity,
-  });
-}
+//   HomeScreenStateViewItemProgressBar({
+//     required super.key,
+//     required this.entity,
+//   });
+// }
 
 class HomeScreenStateViewItemHost extends HomeScreenStateViewItem {
   final HomeScreenViewHostEntity entity;

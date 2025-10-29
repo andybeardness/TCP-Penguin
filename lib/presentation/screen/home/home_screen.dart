@@ -2,20 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tcp_penguin/app/di/di.dart';
 import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
-import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
-import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
-import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
-import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_action.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_event.dart';
-import 'package:tcp_penguin/presentation/screen/home/home_screen_state.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_view_model.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
+import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_form.dart';
 import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_progress_bar.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_workers.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_port_range.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_button.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_timeout.dart';
+import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_result.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -85,95 +77,63 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: StreamBuilder(
-          stream: viewModel.state,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16.0),
 
-            if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            }
+              StreamBuilder(
+                stream: viewModel.progress$,
+                builder: (context, snapshot) {
+                  return HomeScreenViewProgressBar(progress: snapshot.data);
+                },
+              ),
 
-            final items = snapshot.data?.viewItems ?? [];
+              const SizedBox(height: 8.0),
 
-            return ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final item = items[index];
+              const Divider(),
 
-                if (item is HomeScreenStateViewItemSpacer) {
-                  return CommonViewSpacer(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                  );
-                } else if (item is HomeScreenStateViewItemTitle) {
-                  return CommonViewTitle(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                  );
-                } else if (item is HomeScreenStateViewItemSubtitle) {
-                  return CommonViewSubtitle(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                  );
-                } else if (item is HomeScreenStateViewItemText) {
-                  return CommonViewText(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                  );
-                } else if (item is HomeScreenStateViewItemProgressBar) {
-                  return HomeScreenViewProgressBar(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                  );
-                } else if (item is HomeScreenStateViewItemHost) {
-                  return HomeScreenViewHost(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
+              const SizedBox(height: 8.0),
+
+              StreamBuilder(
+                stream: viewModel.scanResult$,
+                builder: (context, snapshot) {
+                  return HomeScreenViewScanResult(entity: snapshot.data);
+                },
+              ),
+
+              const SizedBox(height: 8.0),
+
+              const Divider(),
+
+              const SizedBox(height: 8.0),
+
+              StreamBuilder(
+                stream: viewModel.form$,
+                builder: (context, snapshot) {
+                  return HomeScreenViewForm(
+                    entity: snapshot.data,
                     onHostChanged: (newHost) {
                       viewModel.handleAction(
                         action: HomeScreenActionUpdateHost(newHost: newHost),
                       );
                     },
-                  );
-                } else if (item is HomeScreenStateViewItemPortRange) {
-                  return HomeScreenViewPortRange(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                    onStartPortChanged: (newStartPort) {
+                    onPortStartChanged: (newPortStart) {
                       viewModel.handleAction(
                         action: HomeScreenActionUpdateStartPort(
-                          newStartPort: newStartPort,
+                          newStartPort: newPortStart,
                         ),
                       );
                     },
-                    onEndPortChanged: (newEndPort) {
+                    onPortEndChanged: (newPortEnd) {
                       viewModel.handleAction(
                         action: HomeScreenActionUpdateEndPort(
-                          newEndPort: newEndPort,
+                          newEndPort: newPortEnd,
                         ),
                       );
                     },
-                  );
-                } else if (item is HomeScreenStateViewItemMaxWorkers) {
-                  return HomeScreenViewWorkers(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                    onMaxWorkersChanged: (newMaxWorkers) {
-                      viewModel.handleAction(
-                        action: HomeScreenActionUpdateMaxWorkers(
-                          newMaxWorkers: newMaxWorkers,
-                        ),
-                      );
-                    },
-                  );
-                } else if (item is HomeScreenStateViewItemTimeout) {
-                  return HomeScreenViewTimeout(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
                     onTimeoutChanged: (newTimeout) {
                       viewModel.handleAction(
                         action: HomeScreenActionUpdateTimeout(
@@ -181,22 +141,37 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     },
-                  );
-                } else if (item is HomeScreenStateViewItemScanButton) {
-                  return HomeScreenViewScanButton(
-                    key: ValueKey(item.key),
-                    entity: item.entity,
-                    onPressed: () {
+
+                    onWorkersChanged: (newWorkers) {
                       viewModel.handleAction(
-                        action: HomeScreenActionOnClickScanButton(),
+                        action: HomeScreenActionUpdateMaxWorkers(
+                          newMaxWorkers: newWorkers,
+                        ),
                       );
                     },
                   );
-                }
-                return const SizedBox.shrink();
-              },
-            );
-          },
+                },
+              ),
+
+              const SizedBox(height: 8.0),
+
+              const Divider(),
+
+              const SizedBox(height: 8.0),
+
+              ElevatedButton(
+                onPressed: () {
+                  viewModel.handleAction(
+                    action: HomeScreenActionOnClickScanButton(),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 48),
+                ),
+                child: Text("Scan"),
+              ),
+            ],
+          ),
         ),
       ),
     );

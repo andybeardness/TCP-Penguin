@@ -13,25 +13,25 @@ class HomeScreenActionUpdateHost extends HomeScreenAction {
 }
 
 class HomeScreenActionUpdateStartPort extends HomeScreenAction {
-  final String newStartPort;
+  final int newStartPort;
 
   HomeScreenActionUpdateStartPort({required this.newStartPort});
 }
 
 class HomeScreenActionUpdateEndPort extends HomeScreenAction {
-  final String newEndPort;
+  final int newEndPort;
 
   HomeScreenActionUpdateEndPort({required this.newEndPort});
 }
 
 class HomeScreenActionUpdateMaxWorkers extends HomeScreenAction {
-  final String newMaxWorkers;
+  final int newMaxWorkers;
 
   HomeScreenActionUpdateMaxWorkers({required this.newMaxWorkers});
 }
 
 class HomeScreenActionUpdateTimeout extends HomeScreenAction {
-  final String newTimeoutMs;
+  final int newTimeoutMs;
 
   HomeScreenActionUpdateTimeout({required this.newTimeoutMs});
 }

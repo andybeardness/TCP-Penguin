@@ -3,19 +3,10 @@ import 'package:tcp_penguin/domain/concurency_runner/concurency_runner.dart';
 import 'package:tcp_penguin/domain/host_saver/host_saver.dart';
 import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner.dart';
 import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
-import 'package:tcp_penguin/presentation/common_view/spacer/common_view_spacer.dart';
-import 'package:tcp_penguin/presentation/common_view/subtitle/common_view_subtitle.dart';
-import 'package:tcp_penguin/presentation/common_view/text/common_view_text.dart';
-import 'package:tcp_penguin/presentation/common_view/title/common_view_title.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_action.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_event.dart';
-import 'package:tcp_penguin/presentation/screen/home/home_screen_state.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_host.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_progress_bar.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_workers.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_port_range.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_button.dart';
-import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_timeout.dart';
+import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_form.dart';
+import 'package:tcp_penguin/presentation/screen/home/view/home_screen_view_scan_result.dart';
 
 class OpenPortsResult {
   final String host;
@@ -29,304 +20,39 @@ class HomeScreenViewModel {
   final ConcurencyRunner concurencyRunner;
   final HostSaver hostSaver;
 
-  final BehaviorSubject<HomeScreenState> state = BehaviorSubject.seeded(
-    HomeScreenState(viewItems: []),
-  );
+  final BehaviorSubject<double?> _progress = BehaviorSubject.seeded(null);
+  ValueStream<double?> get progress$ => _progress.stream;
+
+  final BehaviorSubject<HomeScreenViewScanResultEntity?> _scanResult =
+      BehaviorSubject.seeded(null);
+  ValueStream<HomeScreenViewScanResultEntity?> get scanResult$ =>
+      _scanResult.stream;
+
+  final BehaviorSubject<HomeScreenViewFormEntity> _form =
+      BehaviorSubject.seeded(
+        HomeScreenViewFormEntity(
+          host: "scanme.nmap.org",
+          portStart: 1,
+          portEnd: 255,
+          workers: 100,
+          timeout: 5000,
+        ),
+      );
+  ValueStream<HomeScreenViewFormEntity> get form$ => _form.stream;
 
   final BehaviorSubject<HomeScreenEvent> event = BehaviorSubject();
-
-  final BehaviorSubject<String> _host = BehaviorSubject.seeded(
-    "scanme.nmap.org",
-  );
-  final BehaviorSubject<String> _startPort = BehaviorSubject.seeded('1');
-  final BehaviorSubject<String> _endPort = BehaviorSubject.seeded('255');
-  final BehaviorSubject<String> _workers = BehaviorSubject.seeded('100');
-  final BehaviorSubject<String> _timeoutMs = BehaviorSubject.seeded('5000');
-
-  final BehaviorSubject<double?> _progress = BehaviorSubject.seeded(null);
-  final BehaviorSubject<OpenPortsResult?> _openPortsResult =
-      BehaviorSubject.seeded(null);
 
   HomeScreenViewModel({
     required this.tcpScanner,
     required this.concurencyRunner,
     required this.hostSaver,
-  }) {
-    Rx.combineLatest(
-      [
-        _host,
-        _startPort,
-        _endPort,
-        _workers,
-        _timeoutMs,
-        _progress,
-        _openPortsResult,
-      ],
-      (streams) async {
-        final String host = streams[0] as String;
-        final String startPort = streams[1] as String;
-        final String endPort = streams[2] as String;
-        final String maxWorkers = streams[3] as String;
-        final String timeoutMs = streams[4] as String;
-        final double? progress = streams[5] as double?;
-        final OpenPortsResult? openPortsResult = streams[6] as OpenPortsResult?;
-
-        final viewItems = <HomeScreenStateViewItem>[];
-
-        bool hasErrors = false;
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_top',
-            entity: CommonViewSpacerEntity(height: 16),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemTitle(
-            key: 'title_progress',
-            entity: CommonViewTitleEntity(title: 'Progress'),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_title_progress',
-            entity: CommonViewSpacerEntity(height: 4),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemProgressBar(
-            key: 'progress_bar',
-            entity: HomeScreenViewProgressBarEntity(progress: progress ?? 0),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_progress_bar',
-            entity: CommonViewSpacerEntity(height: 4),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemText(
-            key: 'text_progress_status',
-            entity: CommonViewTextEntity(
-              text: (progress ?? 0) > 0
-                  ? 'Scanning in progress, don\'t close the app'
-                  : 'Ready to start a new scan',
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_text_progress_status',
-            entity: CommonViewSpacerEntity(height: 16),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemTitle(
-            key: 'title_result',
-            entity: CommonViewTitleEntity(title: 'Result'),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_title_result',
-            entity: CommonViewSpacerEntity(height: 4),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSubtitle(
-            key: 'subtitle_result_host',
-            entity: CommonViewSubtitleEntity(
-              subtitle: openPortsResult != null
-                  ? '– Host: ${openPortsResult.host}'
-                  : '– Host: ...',
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_subtitle_result_host',
-            entity: CommonViewSpacerEntity(height: 4),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSubtitle(
-            key: 'subtitle_result_open_ports',
-            entity: CommonViewSubtitleEntity(
-              subtitle: openPortsResult != null
-                  ? '– Open ports: ${openPortsResult.openPorts.join(', ')}'
-                  : '– Open ports: ...',
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_subtitle_result_open_ports',
-            entity: CommonViewSpacerEntity(height: 16),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemTitle(
-            key: 'title_data',
-            entity: CommonViewTitleEntity(title: 'Data'),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_title_data',
-            entity: CommonViewSpacerEntity(height: 8),
-          ),
-        );
-
-        String? hostErrorText;
-        if (host.isEmpty) {
-          hostErrorText = "Empty host";
-          hasErrors = true;
-        }
-
-        viewItems.add(
-          HomeScreenStateViewItemHost(
-            key: 'host',
-            entity: HomeScreenViewHostEntity(
-              host: host,
-              errorText: hostErrorText,
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_host',
-            entity: CommonViewSpacerEntity(height: 8),
-          ),
-        );
-
-        String? startPortErrorText;
-        if (startPort.isEmpty) {
-          startPortErrorText = "Start port is empty";
-          hasErrors = true;
-        }
-
-        String? endPortErrorText;
-        if (endPort.isEmpty) {
-          endPortErrorText = "End port is empty";
-          hasErrors = true;
-        }
-
-        viewItems.add(
-          HomeScreenStateViewItemPortRange(
-            key: 'port_range',
-            entity: HomeScreenViewPortRangeEntity(
-              startPort: startPort,
-              startPortErrorText: startPortErrorText,
-              endPort: endPort,
-              endPortErrorText: endPortErrorText,
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_port_range',
-            entity: CommonViewSpacerEntity(height: 8),
-          ),
-        );
-
-        String? workersErrorText;
-        if (maxWorkers.isEmpty) {
-          workersErrorText = "Max workers is empty";
-          hasErrors = true;
-        }
-
-        viewItems.add(
-          HomeScreenStateViewItemMaxWorkers(
-            key: 'max_workers',
-            entity: HomeScreenViewWorkersEntity(
-              maxWorkers: maxWorkers,
-              errorText: workersErrorText,
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_max_workers',
-            entity: CommonViewSpacerEntity(height: 8),
-          ),
-        );
-
-        String? timeoutErrorText;
-        if (timeoutMs.isEmpty) {
-          timeoutErrorText = "Timeout is empty";
-          hasErrors = true;
-        }
-
-        viewItems.add(
-          HomeScreenStateViewItemTimeout(
-            key: 'timeout',
-            entity: HomeScreenViewTimeoutEntity(
-              timeoutMs: timeoutMs,
-              errorText: timeoutErrorText,
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_timeout',
-            entity: CommonViewSpacerEntity(height: 16),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemScanButton(
-            key: 'button_scan',
-            entity: HomeScreenViewScanButtonEntity(
-              label: 'Start Scan TCP',
-              isEnabled: !hasErrors && (progress ?? 0) == 0,
-            ),
-          ),
-        );
-
-        viewItems.add(
-          HomeScreenStateViewItemSpacer(
-            key: 'spacer_button_scan',
-            entity: CommonViewSpacerEntity(height: 32),
-          ),
-        );
-
-        return HomeScreenState(viewItems: viewItems);
-      },
-    ).distinct().sampleTime(Duration(milliseconds: 20)).listen((
-      newState,
-    ) async {
-      state.add(await newState);
-    });
-  }
+  });
 
   void dispose() {
-    state.close();
-    _host.close();
-    _startPort.close();
-    _endPort.close();
-    _workers.close();
-    _timeoutMs.close();
+    event.close();
     _progress.close();
-    _openPortsResult.close();
+    _scanResult.close();
+    _form.close();
   }
 
   Future<void> handleAction({required HomeScreenAction action}) async {
@@ -341,44 +67,44 @@ class HomeScreenViewModel {
     } else if (action is HomeScreenActionOnClickSavedScans) {
       event.add(HomeScreenEventNavigateToSavedScans());
     } else if (action is HomeScreenActionUpdateHost) {
-      _host.add(action.newHost);
+      _form.add(_form.value.copyWith(host: action.newHost));
     } else if (action is HomeScreenActionUpdateStartPort) {
-      _startPort.add(action.newStartPort);
+      _form.add(_form.value.copyWith(portStart: action.newStartPort));
     } else if (action is HomeScreenActionUpdateEndPort) {
-      _endPort.add(action.newEndPort);
+      _form.add(_form.value.copyWith(portEnd: action.newEndPort));
     } else if (action is HomeScreenActionUpdateMaxWorkers) {
-      _workers.add(action.newMaxWorkers);
+      _form.add(_form.value.copyWith(workers: action.newMaxWorkers));
     } else if (action is HomeScreenActionUpdateTimeout) {
-      _timeoutMs.add(action.newTimeoutMs);
+      _form.add(_form.value.copyWith(timeout: action.newTimeoutMs));
     } else if (action is HomeScreenActionOnClickScanButton) {
-      final String host = _host.value;
-      final int startPort = int.tryParse(_startPort.value) ?? 1;
-      final int endPort = int.tryParse(_endPort.value) ?? 255;
-      final int maxWorkers = int.tryParse(_workers.value) ?? 100;
-
       _progress.add(0);
 
       final openPorts = await concurencyRunner.runConcurrently(
-        host: host,
-        portStart: startPort,
-        portEnd: endPort,
-        maxConcurrent: maxWorkers,
+        host: _form.value.host,
+        portStart: _form.value.portStart,
+        portEnd: _form.value.portEnd,
+        maxConcurrent: _form.value.workers,
         onProgress: (progress) {
           _progress.add(progress);
         },
       );
 
       if (openPorts.isNotEmpty) {
-        _openPortsResult.add(OpenPortsResult(host: host, openPorts: openPorts));
+        _scanResult.add(
+          HomeScreenViewScanResultEntity(
+            host: _form.value.host,
+            openPorts: openPorts,
+          ),
+        );
 
         await hostSaver.saveHost(
-          host: host,
+          host: _form.value.host,
           openPorts: openPorts,
           createdAt: DateTime.now(),
         );
       }
 
-      _progress.add(null);
+      _progress.add(1);
     }
   }
 
