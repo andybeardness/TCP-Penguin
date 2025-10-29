@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:tcp_penguin/app/di/data/di_database.dart';
 import 'package:tcp_penguin/app/di/data/di_repository.dart';
 import 'package:tcp_penguin/app/di/domain/di_domain.dart';
+import 'package:tcp_penguin/app/di/presentation/di_bloc.dart';
 import 'package:tcp_penguin/app/di/presentation/di_viewmodel.dart';
 
 final getIt = GetIt.instance;
@@ -16,4 +17,5 @@ Future<void> setupDI() async {
 
   // Presentation
   await setupViewModelDI();
+  await setupBlocDI();
 }
