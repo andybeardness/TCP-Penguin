@@ -156,10 +156,22 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
                 BlocSelector<HomeScreenBloc, HomeScreenBlocState, String>(
                   selector: (s) => s.scanResultOpenPorts,
-                  builder: (context, openPorts) {
+                  builder: (context, scanResultOpenPorts) {
                     return Text(
-                      openPorts,
-                      style: Theme.of(context).textTheme.bodySmall,
+                      scanResultOpenPorts,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 8.0),
+
+                BlocSelector<HomeScreenBloc, HomeScreenBlocState, String>(
+                  selector: (s) => s.scanResultDuration,
+                  builder: (context, scanResultDuration) {
+                    return Text(
+                      scanResultDuration,
+                      style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
                 ),

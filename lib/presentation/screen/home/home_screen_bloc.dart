@@ -149,6 +149,8 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
     on<HomeScreenBlocEventClickScan>((e, emit) async {
       emit(state.copyWith(isLoading: true, progress: 0.0));
 
+      final scanStartTime = DateTime.now();
+
       final openPorts = await concurencyRunner.runConcurrently(
         host: state.formHost,
         portStart: state.formPortStart,
@@ -177,6 +179,9 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
         },
       );
 
+      final scanEndTime = DateTime.now();
+      final scanDuration = scanEndTime.difference(scanStartTime);
+
       if (openPorts.isNotEmpty) {
         emit(
           state.copyWith(
@@ -184,6 +189,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
             progress: 1,
             scanResultHost: "Host: ${state.formHost}",
             scanResultOpenPorts: "Open ports: ${openPorts.join(', ')}",
+            scanResultDuration: "Duration: ${scanDuration.inMilliseconds} ms",
           ),
         );
 
