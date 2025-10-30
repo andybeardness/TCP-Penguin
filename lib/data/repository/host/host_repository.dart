@@ -34,4 +34,23 @@ class HostRepository {
       await isar.hostEntitys.delete(id);
     });
   }
+
+  Future<void> updateHost({
+    required String host,
+    required List<int> openPorts,
+  }) async {
+    final existingHost = await isar.hostEntitys
+        .where()
+        .filter()
+        .hostEqualTo(host)
+        .findFirst();
+
+    if (existingHost != null) {
+      existingHost.openPorts = openPorts;
+
+      await isar.writeTxn(() async {
+        await isar.hostEntitys.put(existingHost);
+      });
+    }
+  }
 }

@@ -22,6 +22,8 @@ class HostSaver {
         openPorts: openPorts,
         createdAt: createdAt,
       );
+    } else {
+      await hostRepository.updateHost(host: host, openPorts: openPorts);
     }
   }
 }
