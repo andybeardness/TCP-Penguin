@@ -46,10 +46,11 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeScreenBloc, HomeScreenBlocState>(
-      listenWhen: (prev, curr) =>
-          prev.effect != curr.effect && curr.effect != null,
+      listenWhen: (prev, curr) => prev.effect != curr.effect,
       listener: (context, state) {
-        final effect = state.effect!;
+        final effect = state.effect;
+        if (effect == null) return;
+
         final bloc = context.read<HomeScreenBloc>();
 
         switch (effect) {

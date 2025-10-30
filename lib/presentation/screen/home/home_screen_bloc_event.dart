@@ -1,6 +1,6 @@
-abstract class HomeScreenBlocEvent {}
+sealed class HomeScreenBlocEvent {}
 
-class HomeScreenBlocEventFirstOpen extends HomeScreenBlocEvent {}
+class HomeScreenBlocEventInitial extends HomeScreenBlocEvent {}
 
 class HomeScreenBlocEventClickDonate extends HomeScreenBlocEvent {}
 

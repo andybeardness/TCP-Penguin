@@ -29,7 +29,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
     required this.concurencyRunner,
     required this.hostSaver,
   }) : super(HomeScreenBlocState.initial()) {
-    on<HomeScreenBlocEventFirstOpen>(
+    on<HomeScreenBlocEventInitial>(
       (e, emit) => emit(
         state.copyWith(
           effect: HomeScreenBlocEffectShowDonationDialog(
