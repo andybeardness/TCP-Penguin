@@ -74,13 +74,19 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           title: const Text('🐧 TCP Penguin'),
           actions: [
             IconButton(
-              icon: const Icon(Icons.coffee_rounded),
+              icon: Icon(
+                Icons.coffee_rounded,
+                color: Theme.of(context).colorScheme.primary,
+              ),
               onPressed: () => context.read<HomeScreenBloc>().add(
                 HomeScreenBlocEventClickDonate(),
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.save_rounded),
+              icon: Icon(
+                Icons.save_rounded,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
               onPressed: () => context.read<HomeScreenBloc>().add(
                 HomeScreenBlocEventClickSavedScans(),
               ),
