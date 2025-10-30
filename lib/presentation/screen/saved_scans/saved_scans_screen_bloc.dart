@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tcp_penguin/data/repository/host/host_entity.dart';
 import 'package:tcp_penguin/data/repository/host/host_repository.dart';
 import 'package:tcp_penguin/presentation/screen/saved_scans/saved_scans_screen_bloc_effect.dart';
 import 'package:tcp_penguin/presentation/screen/saved_scans/saved_scans_screen_bloc_event.dart';
@@ -8,9 +11,11 @@ class SavedScansScreenBloc
     extends Bloc<SavedScansScreenBlocEvent, SavedScansScreenBlocState> {
   final HostRepository hostRepository;
 
+  late final StreamSubscription<List<HostEntity>> _hostsSubscription;
+
   SavedScansScreenBloc({required this.hostRepository})
     : super(SavedScansScreenBlocState.initial()) {
-    hostRepository.hosts.listen((hosts) {
+    _hostsSubscription = hostRepository.hosts.listen((hosts) {
       final savedScans = hosts
           .map(
             (host) => SavedScansScreenBlocStateSavedScanItem(
@@ -42,5 +47,11 @@ class SavedScansScreenBloc
     on<InternalSavedScansScreenBlocEventClearEffect>(
       (event, emit) => emit(state.copyWith(effect: null)),
     );
+  }
+
+  @override
+  Future<void> close() {
+    _hostsSubscription.cancel();
+    return super.close();
   }
 }

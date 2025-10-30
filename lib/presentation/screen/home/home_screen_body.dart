@@ -52,6 +52,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         if (effect == null) return;
 
         final bloc = context.read<HomeScreenBloc>();
+        bloc.add(InternalHomeScreenBlocEventClearEffect());
 
         switch (effect) {
           case HomeScreenBlocEffectShowDonationDialog():
@@ -66,8 +67,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
             context.push('/saved_scans');
             break;
         }
-
-        bloc.add(InternalHomeScreenBlocEventClearEffect());
       },
       child: Scaffold(
         appBar: AppBar(

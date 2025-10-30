@@ -19,13 +19,13 @@ class SavedScansScreenBody extends StatelessWidget {
 
         final bloc = context.read<SavedScansScreenBloc>();
 
+        bloc.add(InternalSavedScansScreenBlocEventClearEffect());
+
         switch (effect) {
           case SavedScansScreenBlocEffectNavigateBack():
             context.pop();
             break;
         }
-
-        bloc.add(InternalSavedScansScreenBlocEventClearEffect());
       },
       child: Scaffold(
         appBar: AppBar(
