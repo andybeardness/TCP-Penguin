@@ -100,7 +100,16 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               children: [
                 const SizedBox(height: 16.0),
 
+                Text(
+                  "⚠️ Only scan systems and networks for which you have explicit written permission. Unauthorized scanning may be illegal and could cause service disruption.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelSmall,
+                ),
+
+                const SizedBox(height: 16.0),
+
                 Text("Progress", style: Theme.of(context).textTheme.titleLarge),
+
                 const SizedBox(height: 16.0),
 
                 BlocSelector<HomeScreenBloc, HomeScreenBlocState, double>(
