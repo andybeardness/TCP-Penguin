@@ -11,7 +11,7 @@ class SavedScansScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<SavedScansScreenBloc>(),
-      child: const SavedScansScreenBody(),
+      child: SavedScansScreenBody(),
     );
   }
 }
