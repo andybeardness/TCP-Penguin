@@ -43,7 +43,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
         return Transform(
           alignment: FractionalOffset.center,
           transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.001)
+            ..setEntry(3, 2, 0.005)
             ..rotateX(angleX)
             ..rotateY(angleY),
           child: child,
@@ -59,11 +59,9 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
             child: Container(
               width: 400,
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withAlpha(50),
+                color: Colors.white.withAlpha(50),
                 borderRadius: BorderRadius.circular(32),
-                border: Border.all(
-                  color: theme.colorScheme.onPrimary.withAlpha(100),
-                ),
+                border: Border.all(color: Colors.white.withAlpha(100)),
               ),
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -74,7 +72,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                   Text(
                     'TCP Penguin',
                     style: theme.textTheme.titleLarge?.copyWith(
-                      color: theme.colorScheme.onPrimary,
+                      color: Colors.white,
                     ),
                   ),
 
@@ -84,7 +82,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                     'Developed by Andy Beardness',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: theme.colorScheme.onPrimary,
+                      color: Colors.white,
                     ),
                   ),
 
@@ -94,7 +92,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                     'TCP Penguin is an open-source project aimed at providing a simple and effective TCP port scanning solution for network administrators and security professionals',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onPrimary,
+                      color: Colors.white,
                     ),
                   ),
 
@@ -104,7 +102,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                     'Feel free to explore the source code on GitHub and contribute to the project!',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onPrimary,
+                      color: Colors.white,
                     ),
                   ),
 
@@ -112,8 +110,8 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
 
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.colorScheme.primaryContainer,
-                      foregroundColor: theme.colorScheme.onPrimaryContainer,
+                      backgroundColor: Colors.white.withAlpha(100),
+                      foregroundColor: Colors.white,
                       elevation: 0,
                     ),
                     onPressed: () => context.pop(),
