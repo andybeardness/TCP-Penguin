@@ -154,7 +154,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   selector: (s) => s.scanResultHost,
                   builder: (context, scanResultHost) {
                     return Text(
-                      scanResultHost,
+                      "Host: $scanResultHost",
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
@@ -166,7 +166,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   selector: (s) => s.scanResultOpenPorts,
                   builder: (context, scanResultOpenPorts) {
                     return Text(
-                      scanResultOpenPorts,
+                      "Open ports: $scanResultOpenPorts",
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
@@ -178,7 +178,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   selector: (s) => s.scanResultDuration,
                   builder: (context, scanResultDuration) {
                     return Text(
-                      scanResultDuration,
+                      "Duration (ms): $scanResultDuration",
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },

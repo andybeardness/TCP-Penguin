@@ -57,9 +57,9 @@ class HomeScreenBlocState extends Equatable {
     progress: 0.0,
     progressText: 'Ready to scan',
 
-    scanResultHost: 'Host: ',
-    scanResultOpenPorts: 'Open ports: ',
-    scanResultDuration: 'Duration: ',
+    scanResultHost: '',
+    scanResultOpenPorts: '',
+    scanResultDuration: '',
 
     formHost: 'scanme.nmap.org',
     formPortStart: 1,

@@ -187,9 +187,9 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
           state.copyWith(
             isLoading: false,
             progress: 1,
-            scanResultHost: "Host: ${state.formHost}",
-            scanResultOpenPorts: "Open ports: ${openPorts.join(', ')}",
-            scanResultDuration: "Duration: ${scanDuration.inMilliseconds} ms",
+            scanResultHost: state.formHost,
+            scanResultOpenPorts: openPorts.join(', '),
+            scanResultDuration: scanDuration.inMilliseconds.toString(),
           ),
         );
 
