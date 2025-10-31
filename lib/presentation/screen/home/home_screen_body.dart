@@ -479,6 +479,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     );
                   },
                 ),
+
+                const SizedBox(height: 128.0),
               ],
             ),
           ),
