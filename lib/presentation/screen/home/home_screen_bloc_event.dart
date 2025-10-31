@@ -2,6 +2,8 @@ sealed class HomeScreenBlocEvent {}
 
 class HomeScreenBlocEventInitial extends HomeScreenBlocEvent {}
 
+class HomeScreenBlocEventClickLogo extends HomeScreenBlocEvent {}
+
 class HomeScreenBlocEventClickDonate extends HomeScreenBlocEvent {}
 
 class HomeScreenBlocEventClickSavedScans extends HomeScreenBlocEvent {}

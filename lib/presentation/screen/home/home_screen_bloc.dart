@@ -1,4 +1,3 @@
-// home_screen_bloc.dart
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tcp_penguin/domain/concurency_runner/concurency_runner.dart';
 import 'package:tcp_penguin/domain/host_saver/host_saver.dart';
@@ -37,6 +36,11 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
           ),
         ),
       ),
+    );
+
+    on<HomeScreenBlocEventClickLogo>(
+      (e, emit) =>
+          emit(state.copyWith(effect: HomeScreenBlocEffectShowPenguinDialog())),
     );
 
     on<HomeScreenBlocEventClickDonate>(

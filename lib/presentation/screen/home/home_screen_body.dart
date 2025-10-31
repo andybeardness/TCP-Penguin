@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
+import 'package:tcp_penguin/presentation/common_dialog/penguin/common_dialog_penguin.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_effect.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_event.dart';
@@ -63,14 +64,27 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               onConfirm: () => context.pop(),
             );
             break;
+
           case HomeScreenBlocEffectNavigateToSavedScans():
             context.push('/saved_scans');
+            break;
+
+          case HomeScreenBlocEffectShowPenguinDialog():
+            CommonDialogPenguin.show(context: context);
             break;
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('🐧 TCP Penguin'),
+          leading: IconButton(
+            icon: const Text('🐧', style: TextStyle(fontSize: 24)),
+            onPressed: () {
+              context.read<HomeScreenBloc>().add(
+                HomeScreenBlocEventClickLogo(),
+              );
+            },
+          ),
+          title: const Text('TCP Penguin'),
           actions: [
             IconButton(
               icon: Icon(
@@ -200,7 +214,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   selector: (s) => (s.isLoading, s.formHostError),
                   builder: (context, values) {
                     final (isLoading, formHostError) = values;
-                    // тут
 
                     return TextField(
                       enabled: !isLoading,
