@@ -19,7 +19,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 5),
       vsync: this,
     )..repeat(reverse: false);
   }
@@ -32,6 +32,8 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -56,41 +58,63 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Container(
               width: 400,
-              height: 400,
               decoration: BoxDecoration(
-                color: Colors.white.withAlpha(50),
+                color: theme.colorScheme.primary.withAlpha(50),
                 borderRadius: BorderRadius.circular(32),
-                border: Border.all(color: Colors.white.withAlpha(150)),
+                border: Border.all(
+                  color: theme.colorScheme.onPrimary.withAlpha(100),
+                ),
               ),
               padding: const EdgeInsets.all(16),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    '🐧 TCP Penguin',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                  Text("🐧", style: TextStyle(fontSize: 64)),
+
+                  Text(
+                    'TCP Penguin',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      color: theme.colorScheme.onPrimary,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  const Expanded(
-                    child: SingleChildScrollView(
-                      child: Text(
-                        'Developed by Andy Beardness\n\n'
-                        'TCP Penguin is an open-source project aimed at providing a simple and effective TCP port scanning solution for network administrators and security professionals.\n\n'
-                        'Feel free to explore the source code on GitHub and contribute to the project!',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
-                      ),
+
+                  const SizedBox(height: 8),
+
+                  Text(
+                    'Developed by Andy Beardness',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onPrimary,
                     ),
                   ),
-                  const SizedBox(height: 16),
+
+                  const SizedBox(height: 8),
+
+                  Text(
+                    'TCP Penguin is an open-source project aimed at providing a simple and effective TCP port scanning solution for network administrators and security professionals',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Text(
+                    'Feel free to explore the source code on GitHub and contribute to the project!',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white.withAlpha(50),
-                      foregroundColor: Colors.white,
-                      shadowColor: Colors.transparent,
+                      backgroundColor: theme.colorScheme.primaryContainer,
+                      foregroundColor: theme.colorScheme.onPrimaryContainer,
+                      elevation: 0,
                     ),
                     onPressed: () => context.pop(),
                     child: const Text('Close'),
