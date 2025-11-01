@@ -10,20 +10,25 @@ class HostSaver {
     required List<int> openPorts,
     required DateTime createdAt,
   }) async {
+    final formattedHost = host.trim().toLowerCase();
+
     final hosts = hostRepository.hosts.value;
 
     final existingHost = hosts
-        .where((entity) => entity.host == host)
+        .where((entity) => entity.host == formattedHost)
         .firstOrNull;
 
     if (existingHost == null) {
       await hostRepository.saveHost(
-        host: host,
+        host: formattedHost,
         openPorts: openPorts,
         createdAt: createdAt,
       );
     } else {
-      await hostRepository.updateHost(host: host, openPorts: openPorts);
+      await hostRepository.updateHost(
+        host: formattedHost,
+        openPorts: openPorts,
+      );
     }
   }
 }

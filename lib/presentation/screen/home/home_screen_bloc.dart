@@ -60,17 +60,19 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
     );
 
     on<HomeScreenBlocEventUpdateHost>((e, emit) {
-      if (e.host.isEmpty) {
+      final trimmedHost = e.host.trim();
+
+      if (trimmedHost.isEmpty) {
         emit(
           state.copyWith(
-            formHost: e.host,
+            formHost: trimmedHost,
             formHostError: () => 'Host cannot be empty',
           ),
         );
         return;
       }
 
-      emit(state.copyWith(formHost: e.host, formHostError: () => null));
+      emit(state.copyWith(formHost: trimmedHost, formHostError: () => null));
     });
 
     on<HomeScreenBlocEventUpdateStartPort>((e, emit) {
