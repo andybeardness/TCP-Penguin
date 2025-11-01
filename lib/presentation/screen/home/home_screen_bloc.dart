@@ -186,7 +186,10 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
       );
 
       final scanEndTime = DateTime.now();
-      final scanDuration = scanEndTime.difference(scanStartTime);
+      final scanDuration = scanEndTime
+          .difference(scanStartTime)
+          .inMilliseconds
+          .toString();
 
       if (openPorts.isNotEmpty) {
         emit(
@@ -195,7 +198,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
             progress: 1,
             scanResultHost: state.formHost,
             scanResultOpenPorts: openPorts.join(', '),
-            scanResultDuration: scanDuration.inMilliseconds.toString(),
+            scanResultDuration: scanDuration,
           ),
         );
 
@@ -205,7 +208,15 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
           createdAt: DateTime.now(),
         );
       } else {
-        emit(state.copyWith(isLoading: false, progress: 1));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            progress: 1,
+            scanResultHost: state.formHost,
+            scanResultOpenPorts: "No open ports found",
+            scanResultDuration: scanDuration,
+          ),
+        );
       }
     });
 
