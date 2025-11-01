@@ -9,7 +9,8 @@ class HostRepository {
 
   HostRepository({required this.isar}) {
     isar.hostEntitys.watchLazy(fireImmediately: true).listen((_) async {
-      hosts.add(await isar.hostEntitys.where().findAll());
+      final savedHosts = await isar.hostEntitys.where().findAll();
+      hosts.add(savedHosts);
     });
   }
 

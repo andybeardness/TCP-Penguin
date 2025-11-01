@@ -50,8 +50,9 @@ class SavedScansScreenBody extends StatelessWidget {
             >(
               selector: (state) => state.savedScans,
               builder: (context, savedScans) {
-                return ListView.builder(
+                return ListView.separated(
                   itemCount: savedScans.length,
+                  separatorBuilder: (context, index) => const Divider(),
                   itemBuilder: (context, index) {
                     final item = savedScans[index];
                     return ListTile(
