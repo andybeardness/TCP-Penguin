@@ -22,8 +22,7 @@ class HostRepository {
     final hostEntity = HostEntity()
       ..host = host
       ..openPorts = openPorts
-      ..createdAt = createdAt
-      ..isFavorite = false;
+      ..createdAt = createdAt;
 
     await isar.writeTxn(() async {
       await isar.hostEntitys.put(hostEntity);

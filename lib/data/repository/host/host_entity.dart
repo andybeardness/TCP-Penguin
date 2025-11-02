@@ -8,5 +8,4 @@ class HostEntity {
   late String host;
   late List<int> openPorts;
   late DateTime createdAt;
-  late bool isFavorite;
 }

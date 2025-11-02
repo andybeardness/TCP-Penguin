@@ -27,13 +27,8 @@ const HostEntitySchema = CollectionSchema(
       name: r'host',
       type: IsarType.string,
     ),
-    r'isFavorite': PropertySchema(
-      id: 2,
-      name: r'isFavorite',
-      type: IsarType.bool,
-    ),
     r'openPorts': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'openPorts',
       type: IsarType.longList,
     )
@@ -71,8 +66,7 @@ void _hostEntitySerialize(
 ) {
   writer.writeDateTime(offsets[0], object.createdAt);
   writer.writeString(offsets[1], object.host);
-  writer.writeBool(offsets[2], object.isFavorite);
-  writer.writeLongList(offsets[3], object.openPorts);
+  writer.writeLongList(offsets[2], object.openPorts);
 }
 
 HostEntity _hostEntityDeserialize(
@@ -85,8 +79,7 @@ HostEntity _hostEntityDeserialize(
   object.createdAt = reader.readDateTime(offsets[0]);
   object.host = reader.readString(offsets[1]);
   object.id = id;
-  object.isFavorite = reader.readBool(offsets[2]);
-  object.openPorts = reader.readLongList(offsets[3]) ?? [];
+  object.openPorts = reader.readLongList(offsets[2]) ?? [];
   return object;
 }
 
@@ -102,8 +95,6 @@ P _hostEntityDeserializeProp<P>(
     case 1:
       return (reader.readString(offset)) as P;
     case 2:
-      return (reader.readBool(offset)) as P;
-    case 3:
       return (reader.readLongList(offset) ?? []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -438,16 +429,6 @@ extension HostEntityQueryFilter
     });
   }
 
-  QueryBuilder<HostEntity, HostEntity, QAfterFilterCondition> isFavoriteEqualTo(
-      bool value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'isFavorite',
-        value: value,
-      ));
-    });
-  }
-
   QueryBuilder<HostEntity, HostEntity, QAfterFilterCondition>
       openPortsElementEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
@@ -625,18 +606,6 @@ extension HostEntityQuerySortBy
       return query.addSortBy(r'host', Sort.desc);
     });
   }
-
-  QueryBuilder<HostEntity, HostEntity, QAfterSortBy> sortByIsFavorite() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isFavorite', Sort.asc);
-    });
-  }
-
-  QueryBuilder<HostEntity, HostEntity, QAfterSortBy> sortByIsFavoriteDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isFavorite', Sort.desc);
-    });
-  }
 }
 
 extension HostEntityQuerySortThenBy
@@ -676,18 +645,6 @@ extension HostEntityQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
-
-  QueryBuilder<HostEntity, HostEntity, QAfterSortBy> thenByIsFavorite() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isFavorite', Sort.asc);
-    });
-  }
-
-  QueryBuilder<HostEntity, HostEntity, QAfterSortBy> thenByIsFavoriteDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isFavorite', Sort.desc);
-    });
-  }
 }
 
 extension HostEntityQueryWhereDistinct
@@ -702,12 +659,6 @@ extension HostEntityQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'host', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<HostEntity, HostEntity, QDistinct> distinctByIsFavorite() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'isFavorite');
     });
   }
 
@@ -735,12 +686,6 @@ extension HostEntityQueryProperty
   QueryBuilder<HostEntity, String, QQueryOperations> hostProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'host');
-    });
-  }
-
-  QueryBuilder<HostEntity, bool, QQueryOperations> isFavoriteProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'isFavorite');
     });
   }
 
