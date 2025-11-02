@@ -26,22 +26,19 @@ class ConcurencyTcpScanner {
       final resource = await pool.request();
       tasks.add(
         Future(() async {
-          try {
-            await tcpScanner.scan(
-              host: host,
-              port: port,
-              timeout: Duration(microseconds: timeoutMs),
-              onResult: (TcpScanerResult result) {
-                if (result is TcpScanerResultSuccess) {
-                  openPorts.add(port);
-                }
-              },
-            );
-          } finally {
-            resource.release();
-            completedPorts++;
-            onProgress(completedPorts / totalPorts);
+          final scanResult = await tcpScanner.scan(
+            host: host,
+            port: port,
+            timeout: Duration(milliseconds: timeoutMs),
+          );
+
+          if (scanResult is TcpScanerResultSuccess) {
+            openPorts.add(port);
           }
+
+          resource.release();
+          completedPorts++;
+          onProgress(completedPorts / totalPorts);
         }),
       );
     }
