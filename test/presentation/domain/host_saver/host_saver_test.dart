@@ -20,15 +20,11 @@ class _HostEntityFake implements HostEntity {
   @override
   DateTime createdAt;
 
-  @override
-  bool isFavorite;
-
   _HostEntityFake({
     required this.id,
     required this.host,
     required this.openPorts,
     required this.createdAt,
-    required this.isFavorite,
   });
 }
 
@@ -103,7 +99,6 @@ void main() {
         host: host,
         openPorts: openPortsOld,
         createdAt: createdAt,
-        isFavorite: false,
       ),
     ]);
 
@@ -163,7 +158,6 @@ void main() {
         host: 'example.com',
         openPorts: openPortsOld,
         createdAt: createdAt,
-        isFavorite: false,
       ),
     ]);
 
