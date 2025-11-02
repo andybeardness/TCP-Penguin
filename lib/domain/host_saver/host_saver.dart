@@ -15,7 +15,7 @@ class HostSaver {
     final hosts = hostRepository.hosts.value;
 
     final existingHost = hosts
-        .where((entity) => entity.host == formattedHost)
+        .where((entity) => entity.host.trim().toLowerCase() == formattedHost)
         .firstOrNull;
 
     if (existingHost == null) {
