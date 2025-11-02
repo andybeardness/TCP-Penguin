@@ -1,20 +1,24 @@
 import 'dart:io';
 
-import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner_result.dart';
+sealed class TcpScanerResult {}
+
+class TcpScanerResultSuccess extends TcpScanerResult {}
+
+class TcpScanerResultFailure extends TcpScanerResult {}
 
 class TcpScanner {
   Future<void> scan({
     required String host,
     required int port,
     required Duration timeout,
-    required Function(TcpScanResult) onResult,
+    required Function(TcpScanerResult) onResult,
   }) async {
     late Socket socket;
     try {
       socket = await Socket.connect(host, port, timeout: timeout);
-      onResult(TcpScanResultSuccess(host: host, port: port));
+      onResult(TcpScanerResultSuccess());
     } catch (e) {
-      onResult(TcpScanResultFailure(host: host, port: port));
+      onResult(TcpScanerResultFailure());
     } finally {
       socket.destroy();
     }

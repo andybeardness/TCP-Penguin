@@ -162,6 +162,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
         portStart: state.formPortStart,
         portEnd: state.formPortEnd,
         maxConcurrent: state.formWorkers,
+        timeoutMs: state.formTimeout,
         onProgress: (double progress) {
           final now = DateTime.now();
 

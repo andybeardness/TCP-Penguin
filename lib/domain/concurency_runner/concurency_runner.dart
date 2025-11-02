@@ -1,6 +1,5 @@
 import 'package:pool/pool.dart';
 import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner.dart';
-import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner_result.dart';
 
 class ConcurencyRunner {
   final TcpScanner tcpScanner;
@@ -12,6 +11,7 @@ class ConcurencyRunner {
     required int portStart,
     required int portEnd,
     required int maxConcurrent,
+    required int timeoutMs,
     required Function(double progress) onProgress,
   }) async {
     final pool = Pool(maxConcurrent);
@@ -30,9 +30,9 @@ class ConcurencyRunner {
             await tcpScanner.scan(
               host: host,
               port: port,
-              timeout: Duration(seconds: 1),
-              onResult: (TcpScanResult result) {
-                if (result is TcpScanResultSuccess) {
+              timeout: Duration(microseconds: timeoutMs),
+              onResult: (TcpScanerResult result) {
+                if (result is TcpScanerResultSuccess) {
                   openPorts.add(port);
                 }
               },
