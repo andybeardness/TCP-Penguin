@@ -9,14 +9,14 @@ class TcpScanner {
     required Duration timeout,
     required Function(TcpScanResult) onResult,
   }) async {
+    late Socket socket;
     try {
-      final socket = await Socket.connect(host, port, timeout: timeout);
-      socket.destroy();
+      socket = await Socket.connect(host, port, timeout: timeout);
       onResult(TcpScanResultSuccess(host: host, port: port));
-    } on SocketException {
-      onResult(TcpScanResultFailure(host: host, port: port));
     } catch (e) {
       onResult(TcpScanResultFailure(host: host, port: port));
+    } finally {
+      socket.destroy();
     }
   }
 }
