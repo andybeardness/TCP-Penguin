@@ -64,7 +64,7 @@ void main() {
     await hostsSubject.close();
   });
 
-  test('Regular first host saved', () async {
+  test('Regular host saved', () async {
     final host = 'example.com';
     final openPorts = [20, 85];
     final createdAt = DateTime.utc(2025, 1, 1, 1, 1, 1);
@@ -91,7 +91,7 @@ void main() {
     );
   });
 
-  test('Regular first host updated', () async {
+  test('Regular host updated', () async {
     final String host = 'example.com';
     final List<int> openPortsOld = [20, 30];
     final List<int> openPortsNew = [20, 30, 40];
@@ -123,6 +123,69 @@ void main() {
 
     verify(
       () => hostRepository.updateHost(host: host, openPorts: openPortsNew),
+    ).called(1);
+  });
+
+  test('Unformatted host saved', () async {
+    final openPorts = [20, 85];
+    final createdAt = DateTime.utc(2025, 1, 1, 1, 1, 1);
+
+    await hostSaver.saveHost(
+      host: '     EXAmpLE.COM   ',
+      openPorts: openPorts,
+      createdAt: createdAt,
+    );
+
+    verify(
+      () => hostRepository.saveHost(
+        host: 'example.com',
+        openPorts: openPorts,
+        createdAt: createdAt,
+      ),
+    ).called(1);
+
+    verifyNever(
+      () => hostRepository.updateHost(
+        host: any(named: 'host'),
+        openPorts: any(named: 'openPorts'),
+      ),
+    );
+  });
+
+  test('Unformatted host updated', () async {
+    final List<int> openPortsOld = [20, 30];
+    final List<int> openPortsNew = [20, 30, 40];
+    final DateTime createdAt = DateTime.utc(2025, 1, 1, 1, 1, 1);
+
+    hostsSubject.add([
+      _HostEntityFake(
+        id: 0,
+        host: 'example.com',
+        openPorts: openPortsOld,
+        createdAt: createdAt,
+        isFavorite: false,
+      ),
+    ]);
+
+    hostSaver.saveHost(
+      host: '       EXAMPle.Com      ',
+      openPorts: openPortsNew,
+      createdAt: createdAt,
+    );
+
+    verifyNever(
+      () => hostRepository.saveHost(
+        host: any(named: 'host'),
+        openPorts: any(named: 'openPorts'),
+        createdAt: any(named: 'createdAt'),
+      ),
+    );
+
+    verify(
+      () => hostRepository.updateHost(
+        host: 'example.com',
+        openPorts: openPortsNew,
+      ),
     ).called(1);
   });
 }
