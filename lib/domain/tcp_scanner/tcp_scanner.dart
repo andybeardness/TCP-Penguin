@@ -12,14 +12,14 @@ class TcpScanner {
     required int port,
     required Duration timeout,
   }) async {
-    late Socket socket;
+    Socket? socket;
     try {
       socket = await Socket.connect(host, port, timeout: timeout);
       return (TcpScanerResultSuccess());
     } catch (e) {
       return (TcpScanerResultFailure());
     } finally {
-      socket.destroy();
+      socket?.destroy();
     }
   }
 }
