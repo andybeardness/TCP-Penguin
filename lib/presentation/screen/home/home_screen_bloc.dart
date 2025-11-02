@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tcp_penguin/domain/concurency_runner/concurency_runner.dart';
+import 'package:tcp_penguin/domain/concurency_tcp_scanner/concurency_tcp_scanner.dart';
 import 'package:tcp_penguin/domain/host_saver/host_saver.dart';
 import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_effect.dart';
@@ -9,7 +9,7 @@ import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_do
 
 class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
   final TcpScanner tcpScanner;
-  final ConcurencyRunner concurencyRunner;
+  final ConcurencyTcpScanner concurencyTcpScanner;
   final HostSaver hostSaver;
 
   final _dialogDonationEntity = CommonDialogDonationEntity(
@@ -25,7 +25,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
 
   HomeScreenBloc({
     required this.tcpScanner,
-    required this.concurencyRunner,
+    required this.concurencyTcpScanner,
     required this.hostSaver,
   }) : super(HomeScreenBlocState.initial()) {
     on<HomeScreenBlocEventInitial>(
@@ -157,7 +157,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
 
       final scanStartTime = DateTime.now();
 
-      final openPorts = await concurencyRunner.runConcurrently(
+      final openPorts = await concurencyTcpScanner.runConcurrently(
         host: state.formHost,
         portStart: state.formPortStart,
         portEnd: state.formPortEnd,

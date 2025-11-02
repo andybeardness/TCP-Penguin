@@ -1,10 +1,10 @@
 import 'package:pool/pool.dart';
 import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner.dart';
 
-class ConcurencyRunner {
+class ConcurencyTcpScanner {
   final TcpScanner tcpScanner;
 
-  ConcurencyRunner({required this.tcpScanner});
+  ConcurencyTcpScanner({required this.tcpScanner});
 
   Future<List<int>> runConcurrently({
     required String host,
@@ -17,8 +17,8 @@ class ConcurencyRunner {
     final pool = Pool(maxConcurrent);
 
     final List<Future<void>> tasks = [];
-    final List<int> openPorts = [];
 
+    final List<int> openPorts = [];
     final totalPorts = portEnd - portStart + 1;
     int completedPorts = 0;
 
