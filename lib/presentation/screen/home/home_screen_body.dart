@@ -60,7 +60,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
           case HomeScreenBlocEffectShowDonationDialog():
             CommonDialogDonation.show(
               context: context,
-              entity: effect.entity,
+              title: AppLocalizations.of(context)!.donationDialog.title,
+              subtitle: AppLocalizations.of(
+                context,
+              )!.donationDialog.description,
+              cancelText: AppLocalizations.of(
+                context,
+              )!.donationDialog.cancelButton,
+              confirmText: AppLocalizations.of(
+                context,
+              )!.donationDialog.donateButton,
+              confirmUrl: "https://ko-fi.com/andybeardness",
               onCancel: () => context.pop(),
               onConfirm: () => context.pop(),
             );

@@ -4,7 +4,11 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([super.locale = 'ru']);
 
   @override
-  AppLocalizationsHomeScreen get homeScreen => _LocalizationHomeScreenRu();
+  AppLocalizationsHomeScreen homeScreen = _LocalizationHomeScreenRu();
+
+  @override
+  AppLocalizationsDonationDialog donationDialog =
+      _LocalizationDonationDialogRu();
 }
 
 // Home Screen Translations
@@ -66,4 +70,17 @@ class _LocalizationHomeScreenRu implements AppLocalizationsHomeScreen {
 
   @override
   final String scanButtonTitleScanning = "Сканирование...";
+}
+
+// Donation Dialog Translations
+class _LocalizationDonationDialogRu implements AppLocalizationsDonationDialog {
+  @override
+  final String title = "Поддержите TCP Penguin";
+  @override
+  final String description =
+      "Если вам нравится использовать TCP Penguin, пожалуйста, рассмотрите возможность сделать пожертвование, чтобы поддержать дальнейшую разработку и улучшение приложения.";
+  @override
+  final String donateButton = "☕️ Пожертвовать";
+  @override
+  final String cancelButton = "Отмена";
 }

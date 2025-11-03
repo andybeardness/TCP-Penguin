@@ -5,21 +5,11 @@ import 'package:tcp_penguin/domain/tcp_scanner/tcp_scanner.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_effect.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_event.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_state.dart';
-import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
   final TcpScanner tcpScanner;
   final ConcurencyTcpScanner concurencyTcpScanner;
   final HostSaver hostSaver;
-
-  final _dialogDonationEntity = CommonDialogDonationEntity(
-    title: "Support the Developer",
-    subtitle:
-        "If you enjoy using this app, you can support the developer by making a donation",
-    cancelText: "Later",
-    confirmText: "☕️ Donate",
-    confirmUrl: "https://ko-fi.com/andybeardness",
-  );
 
   DateTime? _lastProgressEmit;
 
@@ -30,11 +20,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
   }) : super(HomeScreenBlocState.initial()) {
     on<HomeScreenBlocEventInitial>(
       (e, emit) => emit(
-        state.copyWith(
-          effect: HomeScreenBlocEffectShowDonationDialog(
-            entity: _dialogDonationEntity,
-          ),
-        ),
+        state.copyWith(effect: HomeScreenBlocEffectShowDonationDialog()),
       ),
     );
 
@@ -45,11 +31,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
 
     on<HomeScreenBlocEventClickDonate>(
       (e, emit) => emit(
-        state.copyWith(
-          effect: HomeScreenBlocEffectShowDonationDialog(
-            entity: _dialogDonationEntity,
-          ),
-        ),
+        state.copyWith(effect: HomeScreenBlocEffectShowDonationDialog()),
       ),
     );
 

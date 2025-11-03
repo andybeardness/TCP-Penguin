@@ -4,7 +4,11 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([super.locale = 'en']);
 
   @override
-  AppLocalizationsHomeScreen get homeScreen => _LocalizationHomeScreenEn();
+  AppLocalizationsHomeScreen homeScreen = _LocalizationHomeScreenEn();
+
+  @override
+  AppLocalizationsDonationDialog donationDialog =
+      _LocalizationDonationDialogEn();
 }
 
 // Home Screen Translations
@@ -65,4 +69,18 @@ class _LocalizationHomeScreenEn implements AppLocalizationsHomeScreen {
 
   @override
   final String scanButtonTitleScanning = "Scanning...";
+}
+
+// Donation Dialog Translations
+class _LocalizationDonationDialogEn implements AppLocalizationsDonationDialog {
+  @override
+  final String title = "Support Development";
+
+  @override
+  final String description =
+      "If you enjoy using TCP Penguin, please consider making a donation to support further development and improvement of the app.";
+  @override
+  final String donateButton = "☕️ Donate";
+  @override
+  final String cancelButton = "Cancel";
 }

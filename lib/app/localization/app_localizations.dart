@@ -32,6 +32,7 @@ abstract class AppLocalizations {
   ];
 
   AppLocalizationsHomeScreen get homeScreen;
+  AppLocalizationsDonationDialog get donationDialog;
 }
 
 class _AppLocalizationsDelegate
@@ -83,4 +84,11 @@ abstract class AppLocalizationsHomeScreen {
   String get inputTimeoutHint;
   String get scanButtonTitleIdle;
   String get scanButtonTitleScanning;
+}
+
+abstract class AppLocalizationsDonationDialog {
+  String get title;
+  String get description;
+  String get donateButton;
+  String get cancelButton;
 }
