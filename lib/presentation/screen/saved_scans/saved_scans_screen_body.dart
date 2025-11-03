@@ -35,13 +35,23 @@ class SavedScansScreenBody extends StatelessWidget {
             AppLocalizations.of(context)!.savedScansScreen.toolbarTitle,
           ),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back_rounded),
             onPressed: () {
               context.read<SavedScansScreenBloc>().add(
                 SavedScansScreenBlocEventOnClickNavigateBack(),
               );
             },
           ),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.share_rounded),
+              onPressed: () {
+                context.read<SavedScansScreenBloc>().add(
+                  SavedScansScreenBlocEventOnClickShare(),
+                );
+              },
+            ),
+          ],
         ),
         body:
             BlocSelector<

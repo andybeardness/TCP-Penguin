@@ -19,5 +19,7 @@ class SavedScansScreenBlocEventOnClickDeleteScan
 class SavedScansScreenBlocEventOnClickNavigateBack
     extends SavedScansScreenBlocEvent {}
 
+class SavedScansScreenBlocEventOnClickShare extends SavedScansScreenBlocEvent {}
+
 class InternalSavedScansScreenBlocEventClearEffect
     extends SavedScansScreenBlocEvent {}
