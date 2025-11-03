@@ -167,56 +167,39 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
           final now = DateTime.now();
 
           if (progress <= 0) {
-            emit(state.copyWith(progress: 0, progressText: 'Ready to scan'));
+            emit(state.copyWith(progress: 0));
           } else if (progress >= 1) {
             emit(state.copyWith(progress: 1));
           } else {
-            final progressText =
-                'Scanning: ${(progress * 100).toStringAsFixed(1)}%. Don\'t close the app!';
-
             if (_lastProgressEmit == null ||
                 now.difference(_lastProgressEmit!) >
                     const Duration(milliseconds: 120)) {
               _lastProgressEmit = now;
-              emit(
-                state.copyWith(progress: progress, progressText: progressText),
-              );
+              emit(state.copyWith(progress: progress));
             }
           }
         },
       );
 
       final scanEndTime = DateTime.now();
-      final scanDuration = scanEndTime
-          .difference(scanStartTime)
-          .inMilliseconds
-          .toString();
+
+      final scanDuration = scanEndTime.difference(scanStartTime).inMilliseconds;
+
+      emit(
+        state.copyWith(
+          isLoading: false,
+          progress: 1,
+          scanResultHost: state.formHost,
+          scanResultOpenPorts: openPorts,
+          scanResultDuration: scanDuration,
+        ),
+      );
 
       if (openPorts.isNotEmpty) {
-        emit(
-          state.copyWith(
-            isLoading: false,
-            progress: 1,
-            scanResultHost: state.formHost,
-            scanResultOpenPorts: openPorts.join(', '),
-            scanResultDuration: scanDuration,
-          ),
-        );
-
         await hostSaver.saveHost(
           host: state.formHost,
           openPorts: openPorts,
           createdAt: DateTime.now(),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            isLoading: false,
-            progress: 1,
-            scanResultHost: state.formHost,
-            scanResultOpenPorts: "No open ports found",
-            scanResultDuration: scanDuration,
-          ),
         );
       }
     });

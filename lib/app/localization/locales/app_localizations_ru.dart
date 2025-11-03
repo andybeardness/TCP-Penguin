@@ -1,0 +1,69 @@
+import '../app_localizations.dart';
+
+class AppLocalizationsRu extends AppLocalizations {
+  AppLocalizationsRu([super.locale = 'ru']);
+
+  @override
+  AppLocalizationsHomeScreen get homeScreen => _LocalizationHomeScreenRu();
+}
+
+// Home Screen Translations
+class _LocalizationHomeScreenRu implements AppLocalizationsHomeScreen {
+  @override
+  final String warning =
+      "⚠️ Сканируйте только те системы и сети, на которые у вас есть явное письменное разрешение. Несанкционированное сканирование может быть незаконным и привести к сбоям в работе служб.";
+
+  @override
+  final String progressBlockTitle = "Прогресс";
+
+  @override
+  String progressSubtitle(double progress) {
+    if (progress == 0) {
+      return "Готов к сканированию";
+    } else if (progress > 0 && progress < 1) {
+      return "Сканирование: ${(progress * 100).toStringAsFixed(1)}%. Не закрывайте приложение!";
+    } else if (progress >= 1) {
+      return "Сканирование завершено";
+    }
+    return "";
+  }
+
+  @override
+  final String outputBlockTitle = "Вывод";
+
+  @override
+  String outputHost(String host) => host.isEmpty ? "Хост: –" : "Хост: $host";
+
+  @override
+  String outputOpenPorts(List<int> openPorts) => openPorts.isEmpty
+      ? "Открытые порты: –"
+      : "Открытые порты: ${openPorts.join(', ')}";
+
+  @override
+  String outputDuration(int ms) =>
+      ms >= 0 ? "Длительность (мс): $ms" : "Длительность (мс): –";
+
+  @override
+  final String inputBlockTitle = "Ввод";
+
+  @override
+  final String inputHostHint = "Хост";
+
+  @override
+  final String inputPortStartHint = "Начальный порт [1-…]";
+
+  @override
+  final String inputPortEndHint = "Конечный порт […-65535]";
+
+  @override
+  final String inputWorkersHint = "Воркеры [1-1000]";
+
+  @override
+  final String inputTimeoutHint = "Таймаут [10-10000 мс]";
+
+  @override
+  final String scanButtonTitleIdle = "Сканировать";
+
+  @override
+  final String scanButtonTitleScanning = "Сканирование...";
+}

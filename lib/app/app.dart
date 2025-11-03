@@ -1,5 +1,6 @@
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
+import 'package:tcp_penguin/app/localization/app_localizations.dart';
 import 'package:tcp_penguin/app/navigation/router.dart';
 
 class MyApp extends StatelessWidget {
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
           ),
           themeMode: ThemeMode.system,
           routerConfig: goRouter,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
         );
       },
     );

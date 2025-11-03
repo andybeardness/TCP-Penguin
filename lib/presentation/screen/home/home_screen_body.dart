@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tcp_penguin/app/localization/app_localizations.dart';
 import 'package:tcp_penguin/presentation/common_dialog/donation/common_dialog_donation.dart';
 import 'package:tcp_penguin/presentation/common_dialog/penguin/common_dialog_penguin.dart';
 import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc.dart';
@@ -115,14 +116,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 const SizedBox(height: 16.0),
 
                 Text(
-                  "⚠️ Only scan systems and networks for which you have explicit written permission. Unauthorized scanning may be illegal and could cause service disruption.",
+                  AppLocalizations.of(context)!.homeScreen.warning,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
 
                 const SizedBox(height: 16.0),
 
-                Text("Progress", style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  AppLocalizations.of(context)!.homeScreen.progressBlockTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
 
                 const SizedBox(height: 16.0),
 
@@ -146,11 +150,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
                 const SizedBox(height: 8.0),
 
-                BlocSelector<HomeScreenBloc, HomeScreenBlocState, String>(
-                  selector: (s) => s.progressText,
-                  builder: (context, progressText) {
+                BlocSelector<HomeScreenBloc, HomeScreenBlocState, double>(
+                  selector: (s) => s.progress,
+                  builder: (context, progress) {
                     return Text(
-                      progressText,
+                      AppLocalizations.of(
+                        context,
+                      )!.homeScreen.progressSubtitle(progress),
                       style: Theme.of(context).textTheme.bodySmall,
                     );
                   },
@@ -160,7 +166,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 const Divider(),
                 const SizedBox(height: 8.0),
 
-                Text('Output', style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  AppLocalizations.of(context)!.homeScreen.outputBlockTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
 
                 const SizedBox(height: 8.0),
 
@@ -168,7 +177,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   selector: (s) => s.scanResultHost,
                   builder: (context, scanResultHost) {
                     return Text(
-                      "Host: $scanResultHost",
+                      AppLocalizations.of(
+                        context,
+                      )!.homeScreen.outputHost(scanResultHost),
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
@@ -176,11 +187,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
                 const SizedBox(height: 8.0),
 
-                BlocSelector<HomeScreenBloc, HomeScreenBlocState, String>(
+                BlocSelector<HomeScreenBloc, HomeScreenBlocState, List<int>>(
                   selector: (s) => s.scanResultOpenPorts,
                   builder: (context, scanResultOpenPorts) {
                     return Text(
-                      "Open ports: $scanResultOpenPorts",
+                      AppLocalizations.of(
+                        context,
+                      )!.homeScreen.outputOpenPorts(scanResultOpenPorts),
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
@@ -188,11 +201,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
                 const SizedBox(height: 8.0),
 
-                BlocSelector<HomeScreenBloc, HomeScreenBlocState, String>(
+                BlocSelector<HomeScreenBloc, HomeScreenBlocState, int>(
                   selector: (s) => s.scanResultDuration,
                   builder: (context, scanResultDuration) {
                     return Text(
-                      "Duration (ms): $scanResultDuration",
+                      AppLocalizations.of(
+                        context,
+                      )!.homeScreen.outputDuration(scanResultDuration),
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
@@ -202,7 +217,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 const Divider(),
                 const SizedBox(height: 8.0),
 
-                Text("Input", style: Theme.of(context).textTheme.titleLarge),
+                Text(
+                  AppLocalizations.of(context)!.homeScreen.inputBlockTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
 
                 const SizedBox(height: 16.0),
 
@@ -219,7 +237,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       enabled: !isLoading,
                       controller: textControllerHost,
                       decoration: InputDecoration(
-                        labelText: 'Host',
+                        labelText: AppLocalizations.of(
+                          context,
+                        )!.homeScreen.inputHostHint,
                         border: OutlineInputBorder(),
                         errorText: formHostError,
                       ),
@@ -254,7 +274,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                 enabled: !isLoading,
                                 controller: textControllerPortStart,
                                 decoration: InputDecoration(
-                                  labelText: 'Port Start [1–…]',
+                                  labelText: AppLocalizations.of(
+                                    context,
+                                  )!.homeScreen.inputPortStartHint,
                                   errorText: formPortStartError,
                                   border: OutlineInputBorder(),
                                 ),
@@ -309,7 +331,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                 enabled: !isLoading,
                                 controller: textControllerPortEnd,
                                 decoration: InputDecoration(
-                                  labelText: 'Port End […–65535]',
+                                  labelText: AppLocalizations.of(
+                                    context,
+                                  )!.homeScreen.inputPortEndHint,
                                   errorText: formPortEndError,
                                   border: OutlineInputBorder(),
                                 ),
@@ -362,7 +386,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       enabled: !isLoading,
                       controller: textControllerWorkers,
                       decoration: InputDecoration(
-                        labelText: 'Workers [1–1000]',
+                        labelText: AppLocalizations.of(
+                          context,
+                        )!.homeScreen.inputWorkersHint,
                         border: OutlineInputBorder(),
                         errorText: formWorkersError,
                       ),
@@ -403,7 +429,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       enabled: !isLoading,
                       controller: textControllerTimeout,
                       decoration: InputDecoration(
-                        labelText: 'Timeout [10–10000 ms]',
+                        labelText: AppLocalizations.of(
+                          context,
+                        )!.homeScreen.inputTimeoutHint,
                         border: OutlineInputBorder(),
                         errorText: formTimeoutError,
                       ),
@@ -475,7 +503,15 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
                       ),
-                      child: Text(isLoading ? "Scanning..." : "Start scan"),
+                      child: Text(
+                        isLoading
+                            ? AppLocalizations.of(
+                                context,
+                              )!.homeScreen.scanButtonTitleScanning
+                            : AppLocalizations.of(
+                                context,
+                              )!.homeScreen.scanButtonTitleIdle,
+                      ),
                     );
                   },
                 ),

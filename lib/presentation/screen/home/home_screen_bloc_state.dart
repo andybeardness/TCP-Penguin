@@ -4,13 +4,11 @@ import 'package:tcp_penguin/presentation/screen/home/home_screen_bloc_effect.dar
 
 class HomeScreenBlocState extends Equatable {
   final bool isLoading;
-
   final double progress;
-  final String progressText;
 
   final String scanResultHost;
-  final String scanResultOpenPorts;
-  final String scanResultDuration;
+  final List<int> scanResultOpenPorts;
+  final int scanResultDuration;
 
   final String formHost;
   final int formPortStart;
@@ -28,9 +26,7 @@ class HomeScreenBlocState extends Equatable {
 
   const HomeScreenBlocState({
     required this.isLoading,
-
     required this.progress,
-    required this.progressText,
 
     required this.scanResultHost,
     required this.scanResultOpenPorts,
@@ -53,13 +49,11 @@ class HomeScreenBlocState extends Equatable {
 
   factory HomeScreenBlocState.initial() => HomeScreenBlocState(
     isLoading: false,
-
     progress: 0.0,
-    progressText: 'Ready to scan',
 
     scanResultHost: '',
-    scanResultOpenPorts: '',
-    scanResultDuration: '',
+    scanResultOpenPorts: [],
+    scanResultDuration: -1,
 
     formHost: 'scanme.nmap.org',
     formPortStart: 1,
@@ -78,13 +72,11 @@ class HomeScreenBlocState extends Equatable {
 
   HomeScreenBlocState copyWith({
     bool? isLoading,
-
     double? progress,
-    String? progressText,
 
     String? scanResultHost,
-    String? scanResultOpenPorts,
-    String? scanResultDuration,
+    List<int>? scanResultOpenPorts,
+    int? scanResultDuration,
 
     String? formHost,
     int? formPortStart,
@@ -102,9 +94,7 @@ class HomeScreenBlocState extends Equatable {
   }) {
     return HomeScreenBlocState(
       isLoading: isLoading ?? this.isLoading,
-
       progress: progress ?? this.progress,
-      progressText: progressText ?? this.progressText,
 
       scanResultHost: scanResultHost ?? this.scanResultHost,
       scanResultOpenPorts: scanResultOpenPorts ?? this.scanResultOpenPorts,
@@ -138,9 +128,7 @@ class HomeScreenBlocState extends Equatable {
   @override
   List<Object?> get props => [
     isLoading,
-
     progress,
-    progressText,
 
     scanResultHost,
     scanResultOpenPorts,
