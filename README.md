@@ -23,8 +23,9 @@
 1. Выгрузка в CSV-файл всех сохранённых портов.
 
 Дополнительные фишки:
-1. Подсветка ошибок при неверном вводе данных, также блокируется кнопка "Сканировать", пока данные введены неверно
-1. Прогресс-бар, который реагирует на прогресс сканирования
+1. Локализация на два языка: EN, RU
+1. Подсветка ошибок при неверном вводе данных, также блокируется кнопка "Сканировать", пока данные введены неверно.
+1. Прогресс-бар, который реагирует на прогресс сканирования.
 1. RichText в диалоге "О приложении".
 1. Цикличная анимаиця диалога "О приложении" с эффектом 3D.
 1. Покрытие тестами.
@@ -35,25 +36,53 @@
 
 #### 2.1.1. Флоу сканирования
 
+<img src='preview/flow_scanning.gif' width=200>
+
 #### 2.1.2. Флоу ошибок при вводе данных
+
+<img src='preview/flow_errors.gif' width=200>
 
 #### 2.1.3. Флоу сохранения результата сканирования
 
+<img src='preview/flow_save_scan.gif' width=200>
+
 #### 2.1.4. Флоу выгрузки результатов сканирования
+
+<img src='preview/flow_csv.gif' width=200>
 
 #### 2.1.5. Флоу диалогового окна доната
 
+<img src='preview/flow_donate.gif' width=200>
+
 #### 2.1.6. Флоу диалогового окна пингвина
+
+<img src='preview/flow_pinguin.gif' width=200>
 
 ### 2.2. Скриншоты
 
 #### 2.2.1. Скриншоты платформ: Android / iOS
 
+| Android | iOS |
+| ---- | ---- |
+| <img src='preview/ss_android.png' width=200> | <img src='preview/ss_ios.png' width=200> | 
+
 #### 2.2.2. Скриншоты основных экранов: Гланый экран / Сохранённые сканирования / Диалоги
+
+| Home | Saved scans | Donation | About |
+| ---- | ---- | ---- | ---- |
+| <img src='preview/ss_screen_home.png' width=200> | <img src='preview/ss_screen_saved.png' width=200> | <img src='preview/ss_screen_donate.png' width=200> | <img src='preview/ss_screen_penguin.png' width=200> |
 
 #### 2.2.3. Скриншоты темы: Светлая / Тёмная
 
+| Light | Dark |
+| ---- | ---- |
+| <img src='preview/ss_light.png' width=200> | <img src='preview/ss_dark.png' width=200> | 
+
 #### 2.2.4. Скриншоты динамических тем Android
+
+| Orange | Purple | Red | Pink |
+| ---- | ---- | ---- | ---- |
+| <img src='preview/ss_orange.png' width=200> | <img src='preview/ss_purple.png' width=200> | <img src='preview/ss_red.png' width=200> | <img src='preview/ss_pink.png' width=200> |
 
 ## 3. Код
 
