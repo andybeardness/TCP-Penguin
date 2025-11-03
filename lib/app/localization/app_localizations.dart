@@ -101,6 +101,7 @@ abstract class AppLocalizationsDonationDialog {
 abstract class AppLocalizationsPenguinDialog {
   String get developedBy;
   String get aboutApp;
-  String get aboutGithub;
+  String get aboutGithubFirstPart;
+  String get aboutGithubSecondPart;
   String get closeButton;
 }

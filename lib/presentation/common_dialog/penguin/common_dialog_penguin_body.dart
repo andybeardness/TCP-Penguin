@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'dart:math' as math;
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tcp_penguin/app/localization/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CommonDialogPenguinBody extends StatefulWidget {
   const CommonDialogPenguinBody({super.key});
@@ -99,11 +101,42 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
 
                   const SizedBox(height: 8),
 
-                  Text(
-                    AppLocalizations.of(context)!.penguinDialog.aboutGithub,
+                  RichText(
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.white,
+                    text: TextSpan(
+                      text: AppLocalizations.of(
+                        context,
+                      )!.penguinDialog.aboutGithubFirstPart,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: Colors.white,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'GitHub',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              final uri = Uri.parse(
+                                'https://github.com/andybeardness/TCP-Penguin-Flutter',
+                              );
+                              await launchUrl(
+                                uri,
+                                mode: LaunchMode.externalApplication,
+                              );
+                            },
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Theme.of(
+                              context,
+                            ).colorScheme.primary,
+                          ),
+                        ),
+                        TextSpan(
+                          text: AppLocalizations.of(
+                            context,
+                          )!.penguinDialog.aboutGithubSecondPart,
+                        ),
+                      ],
                     ),
                   ),
 

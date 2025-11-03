@@ -114,8 +114,10 @@ class _LocalizationPenguinDialogRu implements AppLocalizationsPenguinDialog {
   final String aboutApp =
       "TCP Penguin - это проект с открытым исходным кодом, целью которого является предоставление простого и эффективного решения для сканирования TCP-портов для сетевых администраторов и специалистов по безопасности.";
   @override
-  final String aboutGithub =
-      "Не стесняйтесь исследовать исходный код на GitHub и вносить свой вклад в проект!";
+  final String aboutGithubFirstPart =
+      "Не стесняйтесь исследовать исходный код на ";
+  @override
+  final String aboutGithubSecondPart = " и вносить свой вклад в проект!";
   @override
   final String closeButton = "Закрыть";
 }
