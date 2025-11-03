@@ -28,16 +28,14 @@ class _LocalizationHomeScreenEn implements AppLocalizationsHomeScreen {
   final String progressBlockTitle = "Progress";
 
   @override
-  String progressSubtitle(double progress) {
-    if (progress == 0) {
-      return "Ready to scan";
-    } else if (progress > 0 && progress < 1) {
-      return "Scanning: ${(progress * 100).toStringAsFixed(1)}%. Please do not close the app.";
-    } else if (progress >= 1) {
-      return "Scanning complete";
-    }
-    return "";
-  }
+  String get progressSubtitleReady => "Ready to scan";
+
+  @override
+  String progressSubtitleScanning(String progress) =>
+      "Scanning: $progress%. Please do not close the app.";
+
+  @override
+  String get progressSubtitleComplete => "Scanning complete";
 
   @override
   final String outputBlockTitle = "Output";
@@ -46,12 +44,10 @@ class _LocalizationHomeScreenEn implements AppLocalizationsHomeScreen {
   String outputHost(String host) => "Host: $host";
 
   @override
-  String outputOpenPorts(List<int> openPorts) => openPorts.isEmpty
-      ? "Open ports: not found"
-      : "Open ports: ${openPorts.join(', ')}";
+  String outputOpenPorts(String openPorts) => "Open ports: $openPorts";
 
   @override
-  String outputDuration(int ms) => "Duration (ms): $ms";
+  String outputDuration(String durationMs) => "Duration (ms): $durationMs";
 
   @override
   final String inputBlockTitle = "Input";
@@ -85,9 +81,7 @@ class _LocalizationSavedScansScreenEn
   final String toolbarTitle = "Saved Scans";
 
   @override
-  String openPorts(List<int> openPorts) => openPorts.isEmpty
-      ? "Open ports: –"
-      : "Open ports: ${openPorts.join(', ')}";
+  String openPorts(String openPorts) => "Open ports: $openPorts";
 
   @override
   String date(String dateTimeFormatted) => "Date: $dateTimeFormatted";

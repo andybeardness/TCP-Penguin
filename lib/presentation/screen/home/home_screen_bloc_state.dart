@@ -51,7 +51,7 @@ class HomeScreenBlocState extends Equatable {
     isLoading: false,
     progress: 0.0,
 
-    scanResultHost: '',
+    scanResultHost: '–',
     scanResultOpenPorts: [],
     scanResultDuration: -1,
 

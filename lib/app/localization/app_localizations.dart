@@ -70,11 +70,13 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
 abstract class AppLocalizationsHomeScreen {
   String get warning;
   String get progressBlockTitle;
-  String progressSubtitle(double progress);
+  String get progressSubtitleReady;
+  String progressSubtitleScanning(String progress);
+  String get progressSubtitleComplete;
   String get outputBlockTitle;
   String outputHost(String host);
-  String outputOpenPorts(List<int> openPorts);
-  String outputDuration(int ms);
+  String outputOpenPorts(String openPorts);
+  String outputDuration(String durationMs);
   String get inputBlockTitle;
   String get inputHostHint;
   String get inputPortStartHint;
@@ -87,7 +89,7 @@ abstract class AppLocalizationsHomeScreen {
 
 abstract class AppLocalizationsSavedScansScreen {
   String get toolbarTitle;
-  String openPorts(List<int> openPorts);
+  String openPorts(String openPorts);
   String date(String dateTimeFormatted);
 }
 

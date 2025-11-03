@@ -28,31 +28,26 @@ class _LocalizationHomeScreenRu implements AppLocalizationsHomeScreen {
   final String progressBlockTitle = "Прогресс";
 
   @override
-  String progressSubtitle(double progress) {
-    if (progress == 0) {
-      return "Готов к сканированию";
-    } else if (progress > 0 && progress < 1) {
-      return "Сканирование: ${(progress * 100).toStringAsFixed(1)}%. Не закрывайте приложение!";
-    } else if (progress >= 1) {
-      return "Сканирование завершено";
-    }
-    return "";
-  }
+  final String progressSubtitleReady = "Готов к сканированию";
+
+  @override
+  String progressSubtitleScanning(String progress) =>
+      "Сканирование: $progress%. Не закрывайте приложение!";
+
+  @override
+  String get progressSubtitleComplete => "Сканирование завершено";
 
   @override
   final String outputBlockTitle = "Вывод";
 
   @override
-  String outputHost(String host) => host.isEmpty ? "Хост: –" : "Хост: $host";
+  String outputHost(String host) => "Хост: $host";
 
   @override
-  String outputOpenPorts(List<int> openPorts) => openPorts.isEmpty
-      ? "Открытые порты: –"
-      : "Открытые порты: ${openPorts.join(', ')}";
+  String outputOpenPorts(String openPorts) => "Открытые порты: $openPorts";
 
   @override
-  String outputDuration(int ms) =>
-      ms >= 0 ? "Длительность (мс): $ms" : "Длительность (мс): –";
+  String outputDuration(String timeoutMs) => "Длительность (мс): $timeoutMs";
 
   @override
   final String inputBlockTitle = "Ввод";
@@ -85,9 +80,7 @@ class _LocalizationSavedScansScreenRu
   final String toolbarTitle = "Сохранённые сканы";
 
   @override
-  String openPorts(List<int> openPorts) => openPorts.isEmpty
-      ? "Открытые порты: –"
-      : "Открытые порты: ${openPorts.join(', ')}";
+  String openPorts(String openPorts) => "Открытые порты: $openPorts";
 
   @override
   String date(String dateTimeFormatted) => "Дата: $dateTimeFormatted";

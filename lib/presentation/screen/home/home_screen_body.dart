@@ -163,10 +163,26 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 BlocSelector<HomeScreenBloc, HomeScreenBlocState, double>(
                   selector: (s) => s.progress,
                   builder: (context, progress) {
-                    return Text(
-                      AppLocalizations.of(
+                    String progressText;
+                    if (progress <= 0) {
+                      progressText = AppLocalizations.of(
                         context,
-                      )!.homeScreen.progressSubtitle(progress),
+                      )!.homeScreen.progressSubtitleReady;
+                    } else if (progress >= 1) {
+                      progressText = AppLocalizations.of(
+                        context,
+                      )!.homeScreen.progressSubtitleComplete;
+                    } else {
+                      final progressPercent = (progress * 100).toStringAsFixed(
+                        1,
+                      );
+                      progressText = AppLocalizations.of(
+                        context,
+                      )!.homeScreen.progressSubtitleScanning(progressPercent);
+                    }
+
+                    return Text(
+                      progressText,
                       style: Theme.of(context).textTheme.bodySmall,
                     );
                   },
@@ -200,10 +216,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 BlocSelector<HomeScreenBloc, HomeScreenBlocState, List<int>>(
                   selector: (s) => s.scanResultOpenPorts,
                   builder: (context, scanResultOpenPorts) {
+                    String openPortsText;
+                    if (scanResultOpenPorts.isEmpty) {
+                      openPortsText = '–';
+                    } else {
+                      openPortsText = scanResultOpenPorts.join(', ');
+                    }
+
                     return Text(
                       AppLocalizations.of(
                         context,
-                      )!.homeScreen.outputOpenPorts(scanResultOpenPorts),
+                      )!.homeScreen.outputOpenPorts(openPortsText),
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
@@ -214,10 +237,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 BlocSelector<HomeScreenBloc, HomeScreenBlocState, int>(
                   selector: (s) => s.scanResultDuration,
                   builder: (context, scanResultDuration) {
+                    String scanResultDurationText;
+                    if (scanResultDuration < 0) {
+                      scanResultDurationText = '–';
+                    } else {
+                      scanResultDurationText = scanResultDuration.toString();
+                    }
+
                     return Text(
                       AppLocalizations.of(
                         context,
-                      )!.homeScreen.outputDuration(scanResultDuration),
+                      )!.homeScreen.outputDuration(scanResultDurationText),
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },

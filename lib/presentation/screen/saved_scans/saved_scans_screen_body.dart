@@ -75,9 +75,8 @@ class SavedScansScreenBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              AppLocalizations.of(
-                                context,
-                              )!.savedScansScreen.openPorts(item.openPorts),
+                              AppLocalizations.of(context)!.savedScansScreen
+                                  .openPorts(item.openPorts.join(', ')),
                             ),
                             Text(
                               AppLocalizations.of(context)!.savedScansScreen
