@@ -7,6 +7,10 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsHomeScreen homeScreen = _LocalizationHomeScreenRu();
 
   @override
+  AppLocalizationsSavedScansScreen savedScansScreen =
+      _LocalizationSavedScansScreenRu();
+
+  @override
   AppLocalizationsDonationDialog donationDialog =
       _LocalizationDonationDialogRu();
 
@@ -73,6 +77,20 @@ class _LocalizationHomeScreenRu implements AppLocalizationsHomeScreen {
 
   @override
   final String scanButtonTitleScanning = "Сканирование...";
+}
+
+class _LocalizationSavedScansScreenRu
+    implements AppLocalizationsSavedScansScreen {
+  @override
+  final String toolbarTitle = "Сохранённые сканы";
+
+  @override
+  String openPorts(List<int> openPorts) => openPorts.isEmpty
+      ? "Открытые порты: –"
+      : "Открытые порты: ${openPorts.join(', ')}";
+
+  @override
+  String date(String dateTimeFormatted) => "Дата: $dateTimeFormatted";
 }
 
 // Donation Dialog Translations

@@ -32,6 +32,7 @@ abstract class AppLocalizations {
   ];
 
   AppLocalizationsHomeScreen get homeScreen;
+  AppLocalizationsSavedScansScreen get savedScansScreen;
   AppLocalizationsDonationDialog get donationDialog;
   AppLocalizationsPenguinDialog get penguinDialog;
 }
@@ -62,10 +63,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'AppLocalizations.delegate failed to load unsupported locale "$locale".',
   );
 }
 
@@ -85,6 +83,12 @@ abstract class AppLocalizationsHomeScreen {
   String get inputTimeoutHint;
   String get scanButtonTitleIdle;
   String get scanButtonTitleScanning;
+}
+
+abstract class AppLocalizationsSavedScansScreen {
+  String get toolbarTitle;
+  String openPorts(List<int> openPorts);
+  String date(String dateTimeFormatted);
 }
 
 abstract class AppLocalizationsDonationDialog {

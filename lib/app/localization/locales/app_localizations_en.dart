@@ -7,6 +7,10 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsHomeScreen homeScreen = _LocalizationHomeScreenEn();
 
   @override
+  AppLocalizationsSavedScansScreen savedScansScreen =
+      _LocalizationSavedScansScreenEn();
+
+  @override
   AppLocalizationsDonationDialog donationDialog =
       _LocalizationDonationDialogEn();
 
@@ -72,6 +76,21 @@ class _LocalizationHomeScreenEn implements AppLocalizationsHomeScreen {
 
   @override
   final String scanButtonTitleScanning = "Scanning...";
+}
+
+// Saved Scans Screen Translations
+class _LocalizationSavedScansScreenEn
+    implements AppLocalizationsSavedScansScreen {
+  @override
+  final String toolbarTitle = "Saved Scans";
+
+  @override
+  String openPorts(List<int> openPorts) => openPorts.isEmpty
+      ? "Open ports: –"
+      : "Open ports: ${openPorts.join(', ')}";
+
+  @override
+  String date(String dateTimeFormatted) => "Date: $dateTimeFormatted";
 }
 
 // Donation Dialog Translations

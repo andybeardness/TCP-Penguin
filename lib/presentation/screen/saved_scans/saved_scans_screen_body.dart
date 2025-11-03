@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tcp_penguin/app/localization/app_localizations.dart';
 import 'package:tcp_penguin/presentation/screen/saved_scans/saved_scans_screen_bloc.dart';
 import 'package:tcp_penguin/presentation/screen/saved_scans/saved_scans_screen_bloc_effect.dart';
 import 'package:tcp_penguin/presentation/screen/saved_scans/saved_scans_screen_bloc_event.dart';
@@ -30,7 +31,9 @@ class SavedScansScreenBody extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Saved Scans'),
+          title: Text(
+            AppLocalizations.of(context)!.savedScansScreen.toolbarTitle,
+          ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
@@ -61,9 +64,14 @@ class SavedScansScreenBody extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Open Ports: ${item.openPorts.join(', ')}'),
                             Text(
-                              'Date: ${DateFormatter.format(item.dateTime)}',
+                              AppLocalizations.of(
+                                context,
+                              )!.savedScansScreen.openPorts(item.openPorts),
+                            ),
+                            Text(
+                              AppLocalizations.of(context)!.savedScansScreen
+                                  .date(DateFormatter.format(item.dateTime)),
                             ),
                           ],
                         ),
