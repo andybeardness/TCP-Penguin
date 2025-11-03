@@ -9,6 +9,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   AppLocalizationsDonationDialog donationDialog =
       _LocalizationDonationDialogEn();
+
+  @override
+  AppLocalizationsPenguinDialog penguinDialog = _LocalizationPenguinDialogEn();
 }
 
 // Home Screen Translations
@@ -83,4 +86,18 @@ class _LocalizationDonationDialogEn implements AppLocalizationsDonationDialog {
   final String donateButton = "☕️ Donate";
   @override
   final String cancelButton = "Cancel";
+}
+
+// Penguin Dialog Translations
+class _LocalizationPenguinDialogEn implements AppLocalizationsPenguinDialog {
+  @override
+  final String developedBy = "Developed by Andy Beardness";
+  @override
+  final String aboutApp =
+      "TCP Penguin is an open-source project aimed at providing a simple and effective TCP port scanning solution for network administrators and security professionals.";
+  @override
+  final String aboutGithub =
+      "Feel free to explore the source code on GitHub and contribute to the project!";
+  @override
+  final String closeButton = "Close";
 }

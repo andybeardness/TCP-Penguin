@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tcp_penguin/app/localization/app_localizations.dart';
 
 class CommonDialogPenguinBody extends StatefulWidget {
   const CommonDialogPenguinBody({super.key});
@@ -79,7 +80,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                   const SizedBox(height: 8),
 
                   Text(
-                    'Developed by Andy Beardness',
+                    AppLocalizations.of(context)!.penguinDialog.developedBy,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: Colors.white,
@@ -89,7 +90,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                   const SizedBox(height: 8),
 
                   Text(
-                    'TCP Penguin is an open-source project aimed at providing a simple and effective TCP port scanning solution for network administrators and security professionals',
+                    AppLocalizations.of(context)!.penguinDialog.aboutApp,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: Colors.white,
@@ -99,7 +100,7 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                   const SizedBox(height: 8),
 
                   Text(
-                    'Feel free to explore the source code on GitHub and contribute to the project!',
+                    AppLocalizations.of(context)!.penguinDialog.aboutGithub,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: Colors.white,
@@ -115,7 +116,9 @@ class _CommonDialogPenguinBodyState extends State<CommonDialogPenguinBody>
                       elevation: 0,
                     ),
                     onPressed: () => context.pop(),
-                    child: const Text('Close'),
+                    child: Text(
+                      AppLocalizations.of(context)!.penguinDialog.closeButton,
+                    ),
                   ),
                 ],
               ),

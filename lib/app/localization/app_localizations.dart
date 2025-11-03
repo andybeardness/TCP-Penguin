@@ -33,6 +33,7 @@ abstract class AppLocalizations {
 
   AppLocalizationsHomeScreen get homeScreen;
   AppLocalizationsDonationDialog get donationDialog;
+  AppLocalizationsPenguinDialog get penguinDialog;
 }
 
 class _AppLocalizationsDelegate
@@ -91,4 +92,11 @@ abstract class AppLocalizationsDonationDialog {
   String get description;
   String get donateButton;
   String get cancelButton;
+}
+
+abstract class AppLocalizationsPenguinDialog {
+  String get developedBy;
+  String get aboutApp;
+  String get aboutGithub;
+  String get closeButton;
 }
