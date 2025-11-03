@@ -84,6 +84,12 @@
 | ---- | ---- | ---- | ---- |
 | <img src='preview/ss_orange.png' width=200> | <img src='preview/ss_purple.png' width=200> | <img src='preview/ss_red.png' width=200> | <img src='preview/ss_pink.png' width=200> |
 
+#### 2.2.5. Скриншоты локализаций
+
+| En | Ru |
+| ---- | ---- |
+| <img src='preview/ss_en.png' width=200> | <img src='preview/ss_ru.png' width=200> | 
+
 ## 3. Код
 
 В основе кодовой базы лежат принципы чистой архитектуры.
