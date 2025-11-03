@@ -169,7 +169,7 @@ class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {
           if (progress <= 0) {
             emit(state.copyWith(progress: 0, progressText: 'Ready to scan'));
           } else if (progress >= 1) {
-            emit(state.copyWith(progress: 1, progressText: 'Scan complete'));
+            emit(state.copyWith(progress: 1));
           } else {
             final progressText =
                 'Scanning: ${(progress * 100).toStringAsFixed(1)}%. Don\'t close the app!';
