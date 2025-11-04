@@ -2,119 +2,118 @@
 
 ![](preview/cover.png)
 
-## 1. Описание
+## 1. Description
 
-**TCP Penguin** – кроссплатформенный (Android, iOS) TCP-сканнер, который умеет сканировать порты и показывать / сохранять открытые порты выбранного домена.
+**TCP Penguin** is a cross-platform (Android, iOS) TCP scanner that can scan ports and display/save open ports of a selected domain.
 
-**TCP-сканер** — это инструмент, который проверяет, какие порты на удалённом хосте открыты (то есть принимают соединения по протоколу TCP).
+**TCP Scanner** is a tool that checks which ports on a remote host are open (i.e., accepting TCP connections).
 
-Сканер помогает увидеть, какие порты торчат наружу, и закрыть лишние.
+The scanner helps identify which ports are exposed and close unnecessary ones.
 
-### 1.1. Назначение и функции
+### 1.1. Purpose and Features
 
-У проекта есть два основных назначение:
-1. Создание удобного инструмента для сканирования портов
-1. Показать мой скилл Flutter-разработки для поиска работы, так как я перехожу из нативной Anroid-разработки во Flutter
+The project has two main purposes:
+1. To create a convenient tool for port scanning.
+2. To showcase my Flutter development skills to find a job, as I’m transitioning from native Android development to Flutter.
 
-Основные функции:
-1. Сканирование портов TCP.
-1. Регулировать: хост, диапазон портов, количество одновременных воркеров.
-1. Сохранение успешно найденных портов в базу, а также удаление.
-1. Выгрузка в CSV-файл всех сохранённых портов.
+Main features:
+1. TCP port scanning.
+2. Adjustable host, port range, and number of concurrent workers.
+3. Saving successfully found ports to a database and allowing deletion.
+4. Exporting all saved ports to a CSV file.
 
-Дополнительные фишки:
-1. Локализация на два языка: EN, RU
-1. Подсветка ошибок при неверном вводе данных, также блокируется кнопка "Сканировать", пока данные введены неверно.
-1. Прогресс-бар, который реагирует на прогресс сканирования.
-1. RichText в диалоге "О приложении".
-1. Цикличная анимаиця диалога "О приложении" с эффектом 3D.
-1. Покрытие тестами.
+Extra features:
+1. Localization in two languages: EN, RU.
+2. Input validation with error highlighting; the "Scan" button is disabled until all inputs are valid.
+3. Progress bar reacting to scan progress.
+4. RichText in the "About" dialog.
+5. Cyclic 3D-like animation in the "About" dialog.
+6. Unit test coverage.
 
-## 2. Превью
+## 2. Preview
 
-### 2.1. Скринкасты
+### 2.1. Screencasts
 
-#### 2.1.1. Флоу сканирования
+#### 2.1.1. Scanning Flow
 
 <img src='preview/flow_scanning.gif' width=200>
 
-#### 2.1.2. Флоу ошибок при вводе данных
+#### 2.1.2. Input Error Flow
 
 <img src='preview/flow_errors.gif' width=200>
 
-#### 2.1.3. Флоу сохранения результата сканирования
+#### 2.1.3. Scan Result Saving Flow
 
 <img src='preview/flow_save_scan.gif' width=200>
 
-#### 2.1.4. Флоу выгрузки результатов сканирования
+#### 2.1.4. CSV Export Flow
 
 <img src='preview/flow_csv.gif' width=200>
 
-#### 2.1.5. Флоу диалогового окна доната
+#### 2.1.5. Donation Dialog Flow
 
 <img src='preview/flow_donate.gif' width=200>
 
-#### 2.1.6. Флоу диалогового окна пингвина
+#### 2.1.6. Penguin Dialog Flow
 
 <img src='preview/flow_pinguin.gif' width=200>
 
-### 2.2. Скриншоты
+### 2.2. Screenshots
 
-#### 2.2.1. Скриншоты платформ: Android / iOS
+#### 2.2.1. Platforms: Android / iOS
 
 | Android | iOS |
 | ---- | ---- |
 | <img src='preview/ss_android.png' width=200> | <img src='preview/ss_ios.png' width=200> | 
 
-#### 2.2.2. Скриншоты основных экранов: Гланый экран / Сохранённые сканирования / Диалоги
+#### 2.2.2. Main Screens: Home / Saved Scans / Dialogs
 
 | Home | Saved scans | Donation | About |
 | ---- | ---- | ---- | ---- |
 | <img src='preview/ss_screen_home.png' width=200> | <img src='preview/ss_screen_saved.png' width=200> | <img src='preview/ss_screen_donate.png' width=200> | <img src='preview/ss_screen_penguin.png' width=200> |
 
-#### 2.2.3. Скриншоты темы: Светлая / Тёмная
+#### 2.2.3. Themes: Light / Dark
 
 | Light | Dark |
 | ---- | ---- |
 | <img src='preview/ss_light.png' width=200> | <img src='preview/ss_dark.png' width=200> | 
 
-#### 2.2.4. Скриншоты динамических тем Android
+#### 2.2.4. Dynamic Android Themes
 
 | Orange | Purple | Red | Pink |
 | ---- | ---- | ---- | ---- |
 | <img src='preview/ss_orange.png' width=200> | <img src='preview/ss_purple.png' width=200> | <img src='preview/ss_red.png' width=200> | <img src='preview/ss_pink.png' width=200> |
 
-#### 2.2.5. Скриншоты локализаций
+#### 2.2.5. Localization Screenshots
 
 | En | Ru |
 | ---- | ---- |
 | <img src='preview/ss_en.png' width=200> | <img src='preview/ss_ru.png' width=200> | 
 
-## 3. Код
+## 3. Code
 
-В основе кодовой базы лежат принципы чистой архитектуры.
+The codebase is built on clean architecture principles.
 
-### 3.1. Архитектура
+### 3.1. Architecture
 
-Основные разделы кода:
-1. `/app` – раздел приложения – DI, навигация, локализация
-1. `/data` – дата-слой – база данных и репозитории
-1. `/domain` – доменный-слой – промежуточные классы с обособленной логикой
-1. `/presentation` – презентации-слой – экраны, общие view, утилиты 
+Main code sections:
+1. `/app` – application layer: DI, navigation, localization
+2. `/data` – data layer: database and repositories
+3. `/domain` – domain layer: intermediate logic classes
+4. `/presentation` – presentation layer: screens, shared views, utilities 
 
-### 3.2. Инъекция зависимостей
+### 3.2. Dependency Injection
 
-Реализовал через пакет `get_it`
+Implemented using the `get_it` package.
 
-Инъекции каждого слоя разделены для простоты поддержки
+Each layer has its own injection for easier maintenance.
 
-Все зависимости аккумулируются через единую функцию 
+All dependencies are registered through a single function:
 ```dart
 Future<void> setupDI() async {...}
 ```
 
-Инъекция происходит на старте приложения
-
+Injection occurs at app startup:
 ```dart
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -124,12 +123,11 @@ Future<void> main() async {
 }
 ```
 
-### 3.3. Навигация
+### 3.3. Navigation
 
-Навигация реализовал через пакет `go_router`
+Navigation is implemented using the `go_router` package.
 
-Есть вспомогательный класс для поддержки анимации переходов между экранами
-
+A helper class supports screen transition animations:
 ```dart
 class TransitionPage<T> extends CustomTransitionPage<T> {
   TransitionPage({required super.key, required super.child})
@@ -153,43 +151,42 @@ class TransitionPage<T> extends CustomTransitionPage<T> {
 }
 ```
 
-### 3.4. Локализация
+### 3.4. Localization
 
-Локализация основна на подходе из пакета `gen_l10n`
+Localization is based on the `gen_l10n` approach.
 
-Но вместо него, я реализовал такие же классы сам, так как редактирование `.arb` достаточно ограничено и не позволяет разделять на логические блоки
+However, instead of using `.arb` files, I implemented equivalent custom classes, since `.arb` editing is too limited and doesn’t allow splitting strings into logical blocks.
 
-Я реализовал те же классы сам, но разделил переводы строк на подклассы по каждому экрану
+I divided string translations into subclasses per screen.
 
-Приложение поддерживает локали `EN` и `RU`
+The app supports `EN` and `RU` locales.
 
-#### 3.4.1. Дата-слой
+#### 3.4.1. Data Layer
 
-Тут я организовал работу с базой данных и репозиториями
+Handles database and repository logic.
 
-##### 3.4.1.1. База данных
+##### 3.4.1.1. Database
 
-В качестве базы данных использую пакет `isar`
+Using the `isar` package as the database.
 
-В проекте используется один HostEntity
+The project defines one entity `HostEntity`:
 ```dart
 @collection
 class HostEntity {
   Id id = Isar.autoIncrement; // ID
-  late String host;           // Сохранённый хост
-  late List<int> openPorts;   // Открытые порты хоста
-  late DateTime createdAt;    // Дата создания
+  late String host;           // Saved host
+  late List<int> openPorts;   // Open ports of the host
+  late DateTime createdAt;    // Creation date
 }
 ```
 
-##### 3.4.1.2. Репозиторий
+##### 3.4.1.2. Repository
 
-В дата-слое есть инстанс репозитория `HostRepository`
+In the data layer there is a `HostRepository` instance.
 
-Репозиторий содержит методы **Create**, **Update**, **Delete**
+The repository contains **Create**, **Update**, **Delete** methods.
 
-Реализация **Read** происходит через поток, на который можно подписаться, чтобы всегда иметь поток актуальных данных
-
+**Read** is implemented via a stream that allows real-time data updates:
 ```dart
 class HostRepository {
   final Isar isar;
@@ -204,72 +201,49 @@ class HostRepository {
   }
 ```
 
-#### 3.4.2. Домен-слой
+#### 3.4.2. Domain Layer
 
-Содержит вспомогательные промежуточные классы, которые аккумулируют логику
+Contains helper classes that encapsulate business logic.
 
-Вынесение логики в доменный слой помогает поддерживать тестирумость проекта
+Extracting logic into the domain layer improves testability.
 
-Основные доменные классы:
-1. `tcp_scanner` – обёртка над `Socket` из пакета `dart:io`
-1. `concurency_tcp_scanner` – использует `tcp_scanner` для создания множества воркеров и параллельного сканирования портов
-1. `host_saver` – инкапсулирует логику сохранения / обновления сканирования
-1. `scans_sharer` – инкапсулирует логику сохранения / шаринга csv-файла со всеми сохранёнными сканированиями
+Main domain classes:
+1. `tcp_scanner` – wrapper over `Socket` from `dart:io`
+2. `concurency_tcp_scanner` – creates multiple workers for parallel scanning
+3. `host_saver` – encapsulates save/update logic
+4. `scans_sharer` – encapsulates logic for saving/sharing a CSV file with scans
 
-#### 3.4.3. Презентейшн-слой
+#### 3.4.3. Presentation Layer
 
-В приложении есть два экрана:
-1. Экран сканирования (домашний)
-2. Экран сохранённых сканов
+The app includes two screens:
+1. Scanning screen (home)
+2. Saved scans screen
 
-Также есть два диалоговых окна:
-1. Диалог с информацией о приложении и разработчике и ссылкой на этот репозиторий
-1. Диалог с предложением доната разработчику с ссылкой на сервис ko-fi
+And two dialogs:
+1. About app and developer info (with link to repo)
+2. Donation dialog (link to Ko-fi)
 
-##### 3.4.3.1. Блок
+##### 3.4.3.1. Bloc
 
-В качестве управления состоянием использую пакет `bloc`
+State management uses the `bloc` package.
 
-На каждом экране реализованы сущности
+Each screen defines:
 ```dart
-// Bloc
 class HomeScreenBloc extends Bloc<HomeScreenBlocEvent, HomeScreenBlocState> {...}
-
-// BlocState
 class HomeScreenBlocState extends Equatable {...}
-
-// BlocEvent
 sealed class HomeScreenBlocEvent {...}
-
-// BlocEffect
 sealed class HomeScreenBlocEffect {...}
 ```
 
-##### 3.4.3.2. Вёрстка
+##### 3.4.3.2. Layout
 
-Экран делится на две сущности
-
+Screen is split into:
 ```dart
-// HomeScreen – Обёртка BlocProvider
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<HomeScreenBloc>()..add(HomeScreenBlocEventInitial()),
-      child: const HomeScreenBody(),
-    );
-  }
-}
-
-// HomeScreenBody – Тело экрана
+class HomeScreen extends StatelessWidget { ... }
 class HomeScreenBody extends StatefulWidget {...}
-class _HomeScreenBodyState extends State<HomeScreenBody> {...}
 ```
 
-Изменяемые элементы обёрнуты в BlocSelector
-
+Dynamic parts are wrapped with `BlocSelector`:
 ```dart
 BlocSelector<HomeScreenBloc, HomeScreenBlocState, double>(
     selector: (s) => s.progress,
@@ -290,10 +264,9 @@ BlocSelector<HomeScreenBloc, HomeScreenBlocState, double>(
 ),
 ```
 
-##### 3.4.3.2. Утилиты
+##### 3.4.3.3. Utilities
 
-Есть одна утилита для форматирования дат, которая используется в presentation-слое
-
+Utility for date formatting used in the presentation layer:
 ```dart
 class DateFormatter {
   static final DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm');
@@ -304,14 +277,12 @@ class DateFormatter {
 }
 ```
 
-### 3.5. Тесты
+### 3.5. Tests
 
-Тестами покрыты утилиты presentation-слоя и сушности domain-слоя
+Tests cover utilities (presentation layer) and entities (domain layer).
 
-Примеры:
-
+Example:
 ```dart
-// date formatter tests
 void main() {
   group('DateFormatter', () {
     test('Format my birthday', () {
@@ -319,87 +290,18 @@ void main() {
       final formatted = DateFormatter.format(dt);
       expect(formatted, '2025-05-08 18:50');
     });
-
-    ...
   });
 }
 ```
 
-Использование моков в тестах
-
+Mocks are used for testing:
 ```dart
-// Мок репозитория
 class _HostRepositoryMock extends Mock implements HostRepository {}
-
-// Мок сущности сохарённого хоста
 class _HostEntityFake implements HostEntity {}
-
-void main() {
-  late HostRepository hostRepository;
-  late BehaviorSubject<List<HostEntity>> hostsSubject;
-  late HostSaver hostSaver;
-
-  setUp(() {
-    hostRepository = _HostRepositoryMock();
-    hostsSubject = BehaviorSubject<List<HostEntity>>.seeded(<HostEntity>[]);
-    hostSaver = HostSaver(hostRepository: hostRepository);
-
-    when(() => hostRepository.hosts).thenAnswer((_) => hostsSubject);
-
-    when(
-      () => hostRepository.saveHost(
-        host: any(named: 'host'),
-        openPorts: any(named: 'openPorts'),
-        createdAt: any(named: 'createdAt'),
-      ),
-    ).thenAnswer((_) async {});
-
-    when(
-      () => hostRepository.updateHost(
-        host: any(named: 'host'),
-        openPorts: any(named: 'openPorts'),
-      ),
-    ).thenAnswer((_) async {});
-  });
-
-  tearDown(() async {
-    await hostsSubject.close();
-  });
-
-  // Пример теста
-  test('Regular host saved', () async {
-    final host = 'example.com';
-    final openPorts = [20, 85];
-    final createdAt = DateTime.utc(2025, 1, 1, 1, 1, 1);
-
-    await hostSaver.saveHost(
-      host: host,
-      openPorts: openPorts,
-      createdAt: createdAt,
-    );
-
-    verify(
-      () => hostRepository.saveHost(
-        host: host,
-        openPorts: openPorts,
-        createdAt: createdAt,
-      ),
-    ).called(1);
-
-    verifyNever(
-      () => hostRepository.updateHost(
-        host: any(named: 'host'),
-        openPorts: any(named: 'openPorts'),
-      ),
-    );
-  });
-
-  ...
-}
 ```
 
-## 4. Дополнительно
+## 4. Additional
 
-Есть лицензия [MIT](LICENSE)
+License: [MIT](LICENSE)
 
-Есть [страница релизов](https://github.com/andybeardness/TCP-Penguin-Flutter/releases)
+Releases: [GitHub Releases](https://github.com/andybeardness/TCP-Penguin-Flutter/releases)
